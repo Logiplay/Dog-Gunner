@@ -1,0 +1,742 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#26395f"><title>Dog Gunner — Chubby Buttons Edition</title><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#18243e;color:#fff;font-family:system-ui,-apple-system,sans-serif;touch-action:none}canvas{width:100%;height:100%;display:block;image-rendering:pixelated}button{font-family:inherit;color:white;cursor:pointer;touch-action:manipulation;font-weight:950;text-shadow:0 2px #3b3454;border:2px solid #182b48;border-bottom:4px solid #142239;border-radius:11px;background:linear-gradient(#ffdf84,#ec9d4a);box-shadow:inset 0 2px #fff8;padding:7px}button:active{transform:translateY(2px)}button:disabled{opacity:.4}.hud{position:absolute;inset:0;pointer-events:none;text-shadow:0 2px 2px #142239,1px 1px #142239}.click{pointer-events:auto}.plate{background:linear-gradient(#395c89f2,#233a62f5);border:2px solid #14294b;border-top-color:#90b5dd;border-radius:11px;box-shadow:0 3px #12233c,inset 0 1px #c3d6ed55}#top{position:absolute;top:max(5px,env(safe-area-inset-top));left:6px;right:6px;display:flex;align-items:flex-start;justify-content:space-between;gap:5px}#profile{padding:6px 9px;font-size:13px;font-weight:1000;min-width:94px}#profile small{display:block;color:#ffe7a3;font-size:10px}#money{display:flex;gap:4px}#money>div{padding:7px;font-size:12px;font-weight:1000}#quick{display:flex;gap:4px}#quick button{font-size:18px;min-width:34px}#stage{position:absolute;top:63px;left:50%;transform:translateX(-50%);text-align:center;padding:6px 12px;min-width:155px;font-size:12px;font-weight:950}#stage b{font-size:14px}#bar{height:8px;background:#13223a;border-radius:9px;overflow:hidden;border:1px solid #b7d2ec;margin-top:4px}#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#fff187,#69f5ae)}#sides{position:absolute;top:125px;left:6px;right:6px;display:flex;justify-content:space-between}#sides>div{display:flex;flex-direction:column;gap:5px}#sides button{background:linear-gradient(#5e83b3,#294c7a);font-size:10px;min-width:57px;padding:4px}#sides button span{display:block;font-size:20px}#bottom{position:absolute;bottom:0;left:0;right:0;padding-bottom:max(5px,env(safe-area-inset-bottom));background:linear-gradient(#23395ce8,#111f39fb);border-top:3px solid #91b7e1;pointer-events:auto}#stats{display:flex;justify-content:center;gap:5px;padding:5px 2px 0;font-size:11px;font-weight:900}#stats span{padding:3px 7px;background:#46638a;border-radius:7px}#tabs{display:flex;gap:3px;padding:5px}#tabs button{flex:1;min-width:0;background:linear-gradient(#5377a4,#2b476f);font-size:9px;padding:5px 1px}#tabs button span{display:block;font-size:20px}#controls{position:absolute;bottom:122px;left:10px;right:10px;display:flex;align-items:end;justify-content:space-between;pointer-events:none}#stick{width:91px;height:91px;border-radius:50%;border:3px solid #ffffff99;background:#26446c99;pointer-events:auto;position:relative}#knob{position:absolute;top:23px;left:23px;width:39px;height:39px;border:3px solid #fff8;border-radius:50%;background:#9edaff}#fire{width:87px;height:87px;border-radius:50%;background:linear-gradient(#ffb671,#ef604e);pointer-events:auto;font-size:13px}#fire span{display:block;font-size:27px}#auto{position:absolute;right:12px;bottom:216px;pointer-events:auto;background:linear-gradient(#9ae6ac,#319e68)}#auto.off{background:linear-gradient(#879ab3,#415c7c)}#notice{position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:1000;opacity:0;transition:opacity .2s;white-space:nowrap;text-align:center}#overlay{position:absolute;inset:0;background:#0c1529cc;display:none;align-items:center;justify-content:center;pointer-events:auto;padding:12px}#dialog{width:min(490px,100%);max-height:82dvh;overflow:auto;background:linear-gradient(#466da0,#21385f);border:4px solid #9ac5ef;box-shadow:0 8px #101d35;border-radius:16px;padding:12px}#dialog h2{margin:2px 0 9px;text-align:center;color:#ffeb98;font-size:20px}#items{display:grid;gap:7px}.item{display:flex;align-items:center;gap:9px;background:#172d4fbb;border:1px solid #86a9d2;border-radius:10px;padding:9px}.item .ico{font-size:28px;min-width:34px;text-align:center}.item .info{flex:1;font-size:12px}.item .info b{font-size:13px}.item .info small{display:block;color:#d3e6fc;margin-top:3px}.item button{flex-shrink:0;font-size:11px}.subtitle{font-size:12px;color:#deedff;line-height:1.5}#close{width:100%;margin-top:10px}#bossbar{position:absolute;top:104px;left:50%;transform:translateX(-50%);width:min(270px,62vw);display:none;text-align:center;font-size:12px;font-weight:1000;color:#ffe39a}#bossbar div{background:#381d3c;border:2px solid #ffd8a1;border-radius:7px;height:12px;overflow:hidden}#bossbar i{display:block;background:linear-gradient(90deg,#f3557e,#ffb94e);height:100%}#start{position:absolute;inset:0;background:#142743ee;display:flex;align-items:center;justify-content:center;pointer-events:auto}#start .welcome{max-width:340px;margin:18px;padding:20px;text-align:center}#start h1{color:#ffe49d;font-size:30px;margin:5px}#start p{font-size:13px;line-height:1.5}#start button{font-size:18px;padding:12px 26px}@media(max-width:410px){#profile{font-size:11px;min-width:82px;padding:6px}#money>div{font-size:10px;padding:6px}#quick button{font-size:15px;min-width:29px;padding:5px}#sides button{min-width:48px;font-size:9px}#stage{top:59px}#sides{top:113px}#controls{bottom:112px}#auto{bottom:203px}#tabs button span{font-size:17px}}@media(max-height:620px){#sides{top:105px}#sides button{padding:2px}#controls{bottom:107px}#auto{bottom:193px}}
+
+/* Enchanted Pixel UI */
+:root{--ink:#142239;--gold:#ffca58}
+body{font-family:Trebuchet MS,system-ui,sans-serif}
+.plate{background:linear-gradient(160deg,#3b638d,#172a49);border:3px solid #14243b;border-top-color:#91d8ff;box-shadow:0 4px 0 #101e33,inset 0 2px 0 #ffffff45}
+button{border:3px solid #1a2b47;border-top-color:#ffe4a0;border-bottom-width:5px;border-radius:12px;background:linear-gradient(#ffe68b,#f3a843 70%,#d87836);box-shadow:inset 0 2px #ffffffaa,0 3px 0 #132138;transition:filter .12s}
+button:active{filter:brightness(1.2)}
+#profile{color:#fff2b9;letter-spacing:.3px}
+#money>div{color:#fff4d3;border-color:#18304b}
+#stage{background:linear-gradient(#34577bc9,#162947dc);border-color:#a3d5ec}
+#stage b{color:#fff4b5}
+#bar{height:11px;background:#10273d;border:2px solid #0d2138}
+#bar i{background:linear-gradient(90deg,#fcd75e,#83e9ff)}
+#sides button{background:linear-gradient(#517fb3,#223b69);border-color:#192b49;border-top-color:#a7d6ff;text-shadow:0 2px #17243a}
+#sides button span{filter:drop-shadow(0 2px 0 #1b2444)}
+#bottom{background:linear-gradient(#253d61ed,#13233efb);border-top:4px solid #8bb9e5;box-shadow:0 -3px 0 #19283e}
+#stats span{background:linear-gradient(#486a90,#293f64);border:1px solid #8ba6c9;color:#ffecb8}
+#tabs button{background:linear-gradient(#527db0,#253d68);border-color:#102440;border-top-color:#9cc9ff;color:#f2f8ff}
+#tabs button:first-child{background:linear-gradient(#ffdd78,#edaa4c);color:#3c2a34;text-shadow:0 1px #ffeab5}
+#auto{background:linear-gradient(#ffe58a,#f4ac42);color:#29243b;font-weight:1000;text-shadow:0 1px #fff0ae}
+#dialog{background:linear-gradient(#456e9d,#1a2f52);border:4px solid #a4d6ff;box-shadow:0 8px 0 #0b1a32,0 0 0 4px #162942}
+.item{background:linear-gradient(100deg,#233f68,#182e50);border:2px solid #6f98c3}
+#start{background:radial-gradient(ellipse at center,#233e67dd,#0c1d37f7)}
+#start .welcome{border:4px solid #9bcef7}
+#start h1{font-size:clamp(25px,6vw,36px);text-shadow:0 4px #b36c40,2px 5px #162a4a}
+#bossbar div{height:15px;border:3px solid #27334c}
+#notice{color:#fff5b6;text-shadow:0 3px #27344b,2px 2px #27344b}
+
+/* Ultra Smooth visual refresh */
+:root{--gold:#ffce6a;--blue:#83d6ff}
+body{font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
+#game{filter:saturate(1.15) contrast(1.035)}
+.plate{background:linear-gradient(145deg,#395e8beF,#15294bF5);border:2px solid #15284a;border-top:2px solid #a4dcff;box-shadow:0 5px 12px #071a3470,inset 0 1px #ffffff66;backdrop-filter:blur(8px)}
+button{border-radius:13px;border:2px solid #192f54;border-top-color:#fff2b8;background:linear-gradient(180deg,#ffec9c,#ffc65c 50%,#e58e35);box-shadow:0 4px 9px #0c204688,inset 0 2px 1px #ffffffa6;text-shadow:0 1px #fff6c0;transition:transform .12s,filter .12s,box-shadow .12s}
+button:active{transform:translateY(2px) scale(.98);filter:brightness(1.12);box-shadow:0 1px 3px #07152e}
+#profile{color:#fff7c7;text-shadow:0 2px 3px #06182d}
+#money .plate{color:#fff6db}
+#stage{background:linear-gradient(#2d5587dc,#10294adf);border-color:#9edbff;border-radius:15px}
+#stage b{color:#fff6c5;text-shadow:0 2px #182b48}
+#bar{border:2px solid #132745;background:#071b34;border-radius:15px;overflow:hidden}
+#bar i{background:linear-gradient(90deg,#ffcf5d,#9bf3fa,#75b8ff);box-shadow:0 0 10px #93f5ff}
+#sides button{background:linear-gradient(145deg,#4878b3,#223f75);color:#fff7e8;border-color:#173155;border-top-color:#a8dcff;text-shadow:0 2px #13274c}
+#sides button span{filter:drop-shadow(0 2px 2px #091e3d)}
+#bottom{background:linear-gradient(#243d60ee,#101f3afc);border-top:3px solid #8dc8f4;box-shadow:0 -5px 22px #071a3880;backdrop-filter:blur(12px)}
+#stats span{background:linear-gradient(#3f658f,#1b345b);border:1px solid #82b5dc;border-radius:10px;color:#fff4c9}
+#tabs button{background:linear-gradient(#416da2,#223d6c);color:#f9fbff;border-color:#142b4e;border-top-color:#a3d4f6;text-shadow:0 2px #0f2545}
+#tabs button:first-child{background:linear-gradient(#ffe997,#eeb054);color:#2e2941;text-shadow:0 1px #fff7c7}
+#auto{background:linear-gradient(#ffec9d,#ffbe4d,#ed993c);color:#273451;font-weight:1000}
+#dialog{background:linear-gradient(#456f9b,#182e54);border:3px solid #a3d8ff;box-shadow:0 16px 55px #071529d9,inset 0 2px #ffffff55;border-radius:22px}
+.item{background:linear-gradient(115deg,#294b78,#1b3258);border:1px solid #83aed4;border-radius:13px}
+#overlay{backdrop-filter:blur(7px)}
+#start{background:radial-gradient(ellipse at center,#25456fdb,#071a35f9);backdrop-filter:blur(8px)}
+#start .welcome{border:3px solid #a3d7ff;border-radius:25px;box-shadow:0 20px 70px #07152f99}
+#start h1{color:#fff3b2;text-shadow:0 4px #b76b3c,2px 5px #142a4b}
+#notice{text-shadow:0 2px 5px #132341,0 0 12px #ffe99c}
+#bossbar div{box-shadow:0 0 14px #f86583;border:2px solid #253552}
+#bossbar i{background:linear-gradient(90deg,#ff5a78,#ff9d61)}
+@media(max-width:550px){#sides button{backdrop-filter:blur(3px)}}
+
+#boosters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:8px 7px 3px}
+.boost-card{position:relative;min-width:0;height:92px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:8px 2px 5px;border:3px solid #ff43e9;border-radius:17px;background:linear-gradient(160deg,#785d70,#543b52 65%,#4b3141);box-shadow:0 4px 0 #8e276e,inset 0 0 0 3px #9e7b89,0 0 11px #fa2bd688;text-shadow:2px 2px #49313a;color:#fff9ef;overflow:visible}
+.boost-card .boost-title{position:absolute;top:-25px;left:0;right:0;font-size:clamp(12px,3.8vw,19px);font-weight:1000;letter-spacing:.3px;-webkit-text-stroke:.45px #69423d;text-shadow:2px 3px #513c39}
+.boost-card .boost-level{position:absolute;top:0;right:5px;font-size:clamp(10px,3vw,14px);font-weight:1000}
+.boost-card .boost-symbol{position:absolute;left:0;top:-5px;font-size:clamp(17px,5vw,25px);filter:drop-shadow(2px 2px #5a2c46)}
+.boost-card .boost-symbol small{font-size:10px;color:#ffb5fb;display:block;margin-top:-8px}
+.boost-card strong{font-size:clamp(16px,5.2vw,26px);line-height:1.05;margin:24px 0 5px;white-space:nowrap;text-shadow:2px 3px #48313b}
+.boost-cost{background:#604331;border-radius:12px;padding:3px 5px;color:#ff8d98;font-size:clamp(11px,3.2vw,15px);width:92%;white-space:nowrap}
+.boost-card:disabled{opacity:.72;filter:grayscale(.22)}
+.boost-card.affordable{box-shadow:0 4px 0 #8e276e,inset 0 0 0 3px #9e7b89,0 0 15px #ff53df}
+#bottom{padding-top:20px}
+#controls{bottom:238px}
+#auto{bottom:326px}
+@media(max-width:410px){#boosters{gap:4px;padding-left:4px;padding-right:4px}.boost-card{height:82px;border-radius:13px}#controls{bottom:215px}#auto{bottom:304px}}
+@media(max-height:700px){.boost-card{height:70px}.boost-card strong{margin:17px 0 3px}#controls{bottom:197px}#auto{bottom:287px}}
+
+/* CHUBBY JUICY UPGRADE BUTTONS */
+#boosters{gap:9px;padding:19px 9px 7px;isolation:isolate}
+.boost-card{--accent:#ff83d8;--shine:#fff2a5;appearance:none;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent;position:relative;height:104px;border-radius:27px 27px 23px 23px;border:4px solid #ff4be5;border-bottom-width:7px;background:radial-gradient(ellipse at 45% 9%,#b88ea8 0%,#825d82 39%,#593d61 100%);box-shadow:inset 0 4px 0 #ffe5f39c,inset 0 -7px 0 #3c294d,0 6px 0 #8d2c89,0 9px 13px #10162a77,0 0 12px #fc59e47a;transform-origin:center bottom;animation:chubbyFloat 3.2s ease-in-out infinite;transition:filter .18s,box-shadow .18s;overflow:visible;will-change:transform}
+.boost-card:nth-child(2){--accent:#85e5ff;animation-delay:-1.05s;background:radial-gradient(ellipse at 45% 9%,#b9a1d1,#77678f 43%,#4c416b)}
+.boost-card:nth-child(3){--accent:#ffe285;animation-delay:-2.1s;background:radial-gradient(ellipse at 45% 9%,#bba19c,#806b7a 43%,#584355)}
+.boost-card::before{content:'';position:absolute;top:6px;left:12%;width:75%;height:27%;border-radius:50%;background:linear-gradient(#fff9ffc2,#fff0);opacity:.63;pointer-events:none}
+.boost-card::after{content:'✦';position:absolute;right:10%;top:24%;font-size:13px;color:var(--shine);text-shadow:0 0 10px #fff;animation:twinkle 2s ease-in-out infinite;pointer-events:none}
+.boost-card:nth-child(2)::after{animation-delay:-.7s}.boost-card:nth-child(3)::after{animation-delay:-1.4s}
+.boost-card .boost-title{top:-30px;font-size:clamp(13px,4.2vw,20px);color:#fff8e8;-webkit-text-stroke:.55px #6d414d;text-shadow:1px 3px #6e4a5b,0 0 6px #fff6}
+.boost-card .boost-level{top:6px;right:5px;font-size:clamp(10px,2.7vw,13px);color:#fff1bd;z-index:2}
+.boost-card .boost-symbol{left:5px;top:5px;font-size:clamp(20px,5.5vw,29px);animation:iconWiggle 2.2s ease-in-out infinite;transform-origin:center 70%;z-index:2}
+.boost-card:nth-child(2) .boost-symbol{animation-delay:-.5s}.boost-card:nth-child(3) .boost-symbol{animation-delay:-1s}
+.boost-card .boost-symbol small{font-size:10px;margin-top:-9px;color:#fff5d0}
+.boost-card strong{font-size:clamp(17px,5.1vw,28px);margin:30px 0 5px;letter-spacing:.3px;color:#fff9e5;filter:drop-shadow(0 2px 1px #493044)}
+.boost-cost{background:linear-gradient(#7e5948,#573c39);border:2px solid #b38a68;border-radius:16px;padding:4px 3px;color:#ff9ba8;box-shadow:inset 0 2px #e6b48b66;font-size:clamp(10px,3vw,15px);margin-bottom:1px}
+.boost-card.affordable{box-shadow:inset 0 4px 0 #ffe5f39c,inset 0 -7px 0 #3c294d,0 6px 0 #8d2c89,0 9px 13px #10162a77,0 0 18px #ff8ee6a8}
+.boost-card:disabled{opacity:.83;filter:saturate(.8)}
+.boost-card:active{animation:none;transform:translateY(5px) scale(.94,1.045);filter:brightness(1.2)}
+.boost-card.boost-pop{animation:boostPop .53s cubic-bezier(.2,.9,.3,1.3)!important;filter:brightness(1.3)}
+.boost-burst{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.boost-burst i{position:absolute;left:50%;top:40%;font-size:14px;font-style:normal;color:#fff9b3;text-shadow:0 0 7px var(--accent);animation:burstFly .7s ease-out forwards;--dx:0px;--dy:-25px}
+@keyframes chubbyFloat{0%,100%{transform:translateY(0) scale(1,1)}45%{transform:translateY(-3px) scale(1.025,.985)}70%{transform:translateY(-1px) scale(.99,1.01)}}
+@keyframes iconWiggle{0%,100%{transform:rotate(-9deg) translateY(0)}50%{transform:rotate(10deg) translateY(-3px)}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.5) rotate(90deg)}}
+@keyframes boostPop{0%{transform:scale(1)}23%{transform:translateY(5px) scale(1.13,.81)}50%{transform:translateY(-11px) scale(.89,1.19)}76%{transform:translateY(-2px) scale(1.07,.96)}100%{transform:scale(1)}}
+@keyframes burstFly{0%{opacity:1;transform:translate(0,0) scale(.3) rotate(0)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3) rotate(160deg)}}
+@media(max-width:410px){#boosters{gap:5px;padding:19px 5px 6px}.boost-card{height:94px;border-radius:22px;border-width:3px 3px 6px}.boost-card strong{margin-top:25px}}
+@media(max-height:700px){.boost-card{height:78px}.boost-card strong{margin:19px 0 2px}}
+@media(prefers-reduced-motion:reduce){.boost-card,.boost-card .boost-symbol,.boost-card::after{animation:none!important}}
+
+/* Hand-drawn kawaii SVG upgrade mascots */
+.boost-card .boost-symbol{left:2px;top:-9px;width:54px;height:61px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;filter:drop-shadow(0 3px 1px #3a2a53);pointer-events:none}
+.boost-card .cute-icon{width:51px;height:51px;display:block;overflow:visible;transform-origin:50% 65%;animation:cuteMascotBreath 2s ease-in-out infinite}
+.boost-card:nth-child(2) .cute-icon{animation:cuteMascotZip 1.3s ease-in-out infinite}
+.boost-card:nth-child(3) .cute-icon{animation:cuteMascotBob 2.4s ease-in-out infinite}
+.boost-card .boost-symbol small{font-size:11px;line-height:14px;font-weight:1000;margin-top:-10px;z-index:2;background:#e970ce;border:2px solid #ffe2fa;border-radius:10px;padding:0 4px;color:white;box-shadow:0 2px #784273}
+@keyframes cuteMascotBreath{0%,100%{transform:rotate(-9deg) scale(.95)}50%{transform:rotate(8deg) scale(1.1)}}
+@keyframes cuteMascotZip{0%,100%{transform:rotate(-10deg) translateY(2px)}40%{transform:rotate(8deg) translateY(-4px)}65%{transform:rotate(-3deg) translateY(0)}}
+@keyframes cuteMascotBob{0%,100%{transform:translateY(2px) rotate(-5deg)}50%{transform:translateY(-5px) rotate(6deg)}}
+@media(max-width:410px){.boost-card .boost-symbol{width:43px;top:-6px}.boost-card .cute-icon{width:43px;height:43px}}
+@media(prefers-reduced-motion:reduce){.boost-card .cute-icon{animation:none!important}}
+
+/* Transparent compact upgrade overlay: the gameplay stays visible. */
+#bottom{background:linear-gradient(180deg,rgba(17,31,57,0),rgba(17,31,57,.13) 45%,rgba(17,31,57,.24));border-top:0;box-shadow:none;padding-top:9px;pointer-events:none}
+#bottom #boosters,#bottom #stats,#bottom #tabs{pointer-events:auto}
+#boosters{padding:15px 7px 5px;gap:6px}
+.boost-card,.boost-card:nth-child(2),.boost-card:nth-child(3){height:88px;background:linear-gradient(155deg,rgba(104,70,105,.52),rgba(55,35,67,.47));border:3px solid #ff60df;border-bottom-width:5px;border-radius:21px;box-shadow:inset 0 2px 0 #ffffff4d,0 3px 0 #a4378c,0 0 8px #ff5fe48a;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.boost-card::before{opacity:.28;height:20%}
+.boost-card .boost-symbol{left:5px;top:1px;width:32px;height:37px}
+.boost-card .cute-icon{width:30px;height:30px}
+.boost-card .boost-symbol small{font-size:8px;line-height:11px;margin-top:-5px;padding:0 3px;border-width:1px}
+.boost-card .boost-level{font-size:clamp(9px,2.4vw,12px);top:5px}
+.boost-card strong{font-size:clamp(15px,4.7vw,24px);margin:20px 0 4px}
+.boost-cost{background:rgba(91,56,43,.72);border-color:#c3947b99;padding:3px 2px}
+.boost-card.affordable{box-shadow:inset 0 2px #ffffff55,0 3px #a4378c,0 0 12px #ff5fe4a0}
+@media(max-width:410px){.boost-card{height:82px}.boost-card .boost-symbol{left:3px;top:1px;width:29px;height:34px}.boost-card .cute-icon{width:27px;height:27px}.boost-card strong{margin-top:18px}}
+@media(max-height:700px){.boost-card{height:72px}.boost-card strong{margin:14px 0 2px}}
+#controls,#auto{display:none!important}
+#bottom{background:linear-gradient(180deg,#23395c16,#111f3970)!important}
+#boosters{padding-top:5px!important}
+
+/* Kawaii pet collection drawer */
+#fusionShade{position:fixed;inset:0;background:#12172b5a;z-index:120;display:none;align-items:flex-end;justify-content:center;pointer-events:auto}
+#fusionShade.visible{display:flex}
+#fusionSheet{width:min(100%,520px);height:76dvh;max-height:800px;min-height:420px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;padding:12px 14px max(14px,env(safe-area-inset-bottom));border:4px solid #fff3d9;border-bottom:0;border-radius:32px 32px 0 0;background:linear-gradient(150deg,#ffe2f3f2 0%,#f5d3fff0 50%,#cde9fff2 100%);box-shadow:0 -8px 0 #fa8ccc,0 -18px 45px #43294d70,inset 0 4px 0 #fff9;transform:translateY(110%);transition:transform .48s cubic-bezier(.18,1.18,.3,1);overflow:hidden;color:#674473;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
+#fusionShade.visible #fusionSheet{transform:translateY(0)}
+#fusionSheet h2{margin:0;font-size:clamp(24px,7vw,35px);font-weight:1000;font-style:italic;text-align:center;letter-spacing:-1px;color:#f564af;-webkit-text-stroke:.5px #fff;text-shadow:2px 3px #fff,3px 5px #a762b6;line-height:1.15}
+.fusionTop{display:flex;justify-content:space-between;align-items:center;gap:7px}
+.fusionClose{border:2px solid #fff;background:#ff8abb;border-radius:50%;font-weight:1000;color:white;font-size:20px;width:38px;height:38px;box-shadow:0 3px #be6b9c}
+.fusionHint{font-size:11px;text-align:center;font-weight:900;opacity:.8;line-height:1.25}
+.fusionSection{font-weight:1000;font-style:italic;font-size:15px;margin:2px 0;color:#a55896}
+#fusionEquipped{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+#fusionInventory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:7px;flex:1;min-height:0}
+.fusionSlot{min-width:0;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #fff9ec;border-radius:17px;background:linear-gradient(145deg,#ffffffa6,#e9b6e78c);box-shadow:inset 0 2px 5px #fff,0 3px 0 #c78cbe,0 5px 8px #875b8550;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+#fusionEquipped .fusionSlot{height:clamp(69px,11dvh,96px);border-radius:21px;background:linear-gradient(140deg,#fff8cb,#ffc3e8)}
+.fusionSlot.empty{background:#fff8ff65;border-style:dashed;box-shadow:inset 0 2px 6px #a07d9a29}
+.fusionSlot.dragSource{opacity:.38}
+.fusionSlot.dropReady{border-color:#70d9a9;background:#bdf8d7;transform:scale(1.04)}
+.fusionSlot img{width:90%;height:76%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 3px 2px #a8798e55)}
+.fusionSlot .petName{font-size:clamp(8px,2.3vw,11px);font-weight:1000;color:#744f7c;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.fusionSlot .petRank{position:absolute;top:2px;right:4px;font-size:9px;font-weight:1000;color:#9d6598}
+.petActiveMark{position:absolute;bottom:1px;right:2px;background:#7bc9a1;color:white;font-size:8px;font-weight:1000;padding:1px 4px;border-radius:10px;box-shadow:0 1px 2px #385c4b66}
+.fusionSlot img{filter:drop-shadow(0 4px 1px #704b8655) drop-shadow(0 8px 5px #9a6a9370)!important;transform:perspective(150px) rotateX(4deg);animation:petCardBob 2.3s ease-in-out infinite}
+@keyframes petCardBob{0%,100%{transform:translateY(1px) scale(.98)}50%{transform:translateY(-3px) scale(1.04)}}
+.fusionSlot .emptyMark{font-size:23px;opacity:.35}
+.fusionActions{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fusionBuy{flex:1;border:3px solid #fff3ca;border-radius:18px;padding:9px 5px;background:linear-gradient(#ff92c3,#ed66ad);color:white;font-size:clamp(12px,3.6vw,16px);font-weight:1000;font-style:italic;box-shadow:0 4px #ac518e;text-shadow:0 1px #9a427c}
+.fusionBuy:disabled{filter:grayscale(.5);opacity:.6}
+.fusionPage{border:2px solid white;border-radius:14px;background:#d59bd3;color:white;font-weight:900;padding:7px 10px}
+#fusionCount{font-size:11px;font-weight:900;text-align:center}
+#fusionGhost{position:fixed;z-index:999;pointer-events:none;display:none;width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 8px 6px #4b305d70);transform:translate(-50%,-55%) rotate(-8deg) scale(1.15)}
+@media(max-height:670px){#fusionSheet{height:79dvh;gap:4px;padding-top:7px}#fusionSheet h2{font-size:23px}.fusionSection{font-size:12px}#fusionEquipped .fusionSlot{height:59px}.fusionSlot{border-width:2px;border-radius:12px}.fusionBuy{padding:5px}.fusionHint{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#fusionSheet{transition:none}}
+
+#skinShade{position:fixed;inset:0;z-index:70;background:#1c172a87;display:none;align-items:flex-end;justify-content:center}
+#skinShade.open{display:flex}
+#skinSheet{width:min(100%,580px);height:78dvh;overflow-y:auto;background:linear-gradient(155deg,#fff3fcf7,#ffe7f1f7 48%,#e4effff7);border-radius:27px 27px 0 0;border:3px solid #fff8;box-shadow:0 -14px 45px #3a224977;padding:13px 13px 28px;overscroll-behavior:contain}
+.skinHeader{display:flex;justify-content:space-between;align-items:center}.skinHeader h2{font-size:27px;font-weight:1000;font-style:italic;color:#bc548d;margin:4px 0}.skinHeader button{border:0;background:#fff;border-radius:50%;width:38px;height:38px;font-size:26px;color:#9c5e8a}
+.skinDesc{font-size:12px;color:#8b6685;margin:3px 0 12px;line-height:1.4}
+.skinStats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px}.skinStat{background:#fff9;border:2px solid #fff;border-radius:15px;padding:9px 5px;text-align:center;box-shadow:0 3px 9px #c679a525}.skinStat b{display:block;font-size:12px;color:#855d81}.skinStat strong{font-size:21px;color:#d34d94}.skinStat small{display:block;font-size:9px;color:#98788e}
+.skinGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.skinCard{background:#ffffffc9;border:2px solid #fff;border-radius:18px;padding:7px;box-shadow:0 5px 12px #9e66812b;min-width:0}.skinCard.active{border-color:#ef83bd;background:#fff6fb}.skinCard img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;border-radius:13px}.skinCard h3{font-size:14px;color:#7d4e74;margin:7px 0 4px}.skinBonuses{font-size:10px;color:#8e6382;line-height:1.5;min-height:32px}.skinCard button{width:100%;border:0;border-radius:12px;padding:9px 3px;background:linear-gradient(110deg,#fa90bf,#d77bdc);color:white;font-size:12px;font-weight:900;margin-top:7px}.skinCard button:disabled{background:#d8c7d3;color:#fff}.skinFooter{font-size:11px;color:#876c86;text-align:center;padding-top:13px}
+
+#sides{display:none!important}
+#tabs{display:none!important}
+#cuteSideMenu{position:absolute;left:0;top:clamp(120px,20dvh,190px);display:flex;flex-direction:column;align-items:flex-start;gap:5px;z-index:16;pointer-events:auto;max-height:calc(100dvh - 270px);overflow-y:auto;scrollbar-width:none;padding:3px 9px 8px 0}
+#cuteSideMenu::-webkit-scrollbar{display:none}
+#cuteSideMenu .cuteSideButton{width:clamp(45px,12vw,57px);height:clamp(42px,6dvh,50px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:3px solid #72432e;border-left:0;border-bottom:6px solid #7d492f;border-radius:0 17px 17px 0;background:linear-gradient(145deg,#ffe0a4,#ffbd75 80%);box-shadow:inset 0 3px #fff5cf,2px 4px 0 #a56b48,3px 6px 8px #422d3755;padding:2px 3px 3px;flex-shrink:0;color:#fff;transition:transform .14s,filter .14s}
+#cuteSideMenu .cuteSideButton:nth-child(2n){background:linear-gradient(145deg,#ffe4b7,#ffc788 80%)}
+#cuteSideMenu .cuteSideButton:active{transform:translateX(4px) scale(.96)}
+.cuteSideIcon{height:25px;width:29px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 2px #6f4c4460)}
+.cuteSideIcon svg{height:100%;width:100%;overflow:visible}
+.cuteSideText{font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;font-size:clamp(9px,2.3vw,12px);font-weight:1000;line-height:1.05;letter-spacing:-.6px;-webkit-text-stroke:2px #684736;paint-order:stroke fill;text-shadow:1px 2px 0 #684736}
+#bottom{padding-bottom:max(5px,env(safe-area-inset-bottom))}
+@media(max-height:700px){#cuteSideMenu{top:108px;max-height:calc(100dvh - 235px);gap:4px}#cuteSideMenu .cuteSideButton{height:41px;width:46px}.cuteSideIcon{height:23px}.cuteSideText{font-size:9px}}
+
+.cuteSideIcon .cuteOriginalIcon{width:30px;height:25px;max-width:none;object-fit:contain;display:block;filter:drop-shadow(0 3px 2px #77524c88);pointer-events:none}
+.cuteSideIcon .skinsIcon{width:29px;height:25px;object-fit:cover;object-position:center 33%;border-radius:45% 45% 38% 38%;clip-path:ellipse(47% 49% at 50% 49%)}
+.cuteSideIcon .petsIcon{width:30px;height:26px;object-fit:contain}
+@media(max-height:700px){.cuteSideIcon .cuteOriginalIcon{height:22px;width:26px}}
+</style></head><body><canvas id="dog3DCanvas" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100dvh;z-index:5;pointer-events:none"></canvas><canvas id="game"></canvas><div class="hud"><div id="top"><div id="profile" class="plate">🐶 DOG GUNNER<small>⭐ Lv. <i id="lvl">1</i> · <i id="xp">0</i> XP</small></div><div id="money"><div class="plate">🪙 <i id="gold">0</i></div><div class="plate">💎 <i id="diamonds">0</i></div></div><div id="quick" class="click"><button data-page="daily">🎁</button><button data-page="settings">⚙️</button></div></div><div id="stage" class="plate"><b id="world">🌳 Zauberwald</b><div id="wave">Welle 1</div><div id="bar"><i id="wavebar"></i></div></div><div id="bossbar">👑 BAUMKÖNIG<div><i id="bosshp"></i></div></div><nav id="cuteSideMenu" class="click" aria-label="Spielmenü"><button type="button" class="cuteSideButton" data-page="shop" aria-label="Shop öffnen"><span class="cuteSideIcon"><svg viewBox="0 0 64 64"><rect x="10" y="25" width="44" height="32" rx="7" fill="#ffe9b3" stroke="#764b36" stroke-width="4"/><path d="M9 22L14 8H50L55 22Z" fill="#fa967c" stroke="#764b36" stroke-width="4" stroke-linejoin="round"/><path d="M15 22v7q6 6 12 0v-7m0 0v7q6 6 12 0v-7m0 0v7q6 6 12 0v-7" stroke="#764b36" stroke-width="3" fill="#ffcc8d"/><rect x="24" y="36" width="16" height="21" rx="4" fill="#b5e5f2" stroke="#764b36" stroke-width="3"/></svg></span><span class="cuteSideText">Shop</span></button><button type="button" class="cuteSideButton" data-page="pets" aria-label="Pet öffnen"><span class="cuteSideIcon"><img class="cuteOriginalIcon petsIcon" src="assets/chubby-frog.png" alt="" draggable="false"/></span><span class="cuteSideText">Pet</span></button><button type="button" class="cuteSideButton" data-page="skins" aria-label="Skin öffnen"><span class="cuteSideIcon"><img class="cuteOriginalIcon skinsIcon" src="assets/skin-3.png" alt="" draggable="false"/></span><span class="cuteSideText">Skin</span></button><button type="button" class="cuteSideButton" data-page="weapons" aria-label="Waffe öffnen"><span class="cuteSideIcon"><svg viewBox="0 0 64 64"><path d="M8 25h38q9 0 9 9v6H39L31 55H18l7-16H9Z" fill="#a8b7c9" stroke="#5d4b4d" stroke-width="4" stroke-linejoin="round"/><rect x="7" y="19" width="39" height="12" rx="6" fill="#f8c48c" stroke="#5d4b4d" stroke-width="4"/><circle cx="36" cy="34" r="4" fill="#fff0d5"/></svg></span><span class="cuteSideText">Waffe</span></button><button type="button" class="cuteSideButton" data-page="quests" aria-label="Quests öffnen"><span class="cuteSideIcon"><svg viewBox="0 0 64 64"><path d="M18 9h28v18q0 20-14 20T18 27Z" fill="#ffdb77" stroke="#865b40" stroke-width="4"/><path d="M18 14H7v9q0 12 15 13m24-22h11v9q0 12-15 13" fill="none" stroke="#865b40" stroke-width="4"/><path d="M32 17l4 8 9 1-7 7 2 9-8-4-8 4 2-9-7-7 9-1Z" fill="#fff6c6"/><path d="M32 46v9m-13 2h26" stroke="#865b40" stroke-width="5" stroke-linecap="round"/></svg></span><span class="cuteSideText">Quests</span></button><button type="button" class="cuteSideButton" data-page="worlds" aria-label="Welt öffnen"><span class="cuteSideIcon"><svg viewBox="0 0 64 64"><circle cx="32" cy="31" r="25" fill="#8dd9c8" stroke="#765446" stroke-width="4"/><path d="M15 15l15 1 5 9-7 6 1 12-10 3-9-11m34-24-5 13 10 9-4 12" fill="#a9cf80" stroke="#765446" stroke-width="2" stroke-linejoin="round"/><path d="M8 30h48M32 7q-17 23 0 49Q49 33 32 7" stroke="#ffffff80" stroke-width="2" fill="none"/></svg></span><span class="cuteSideText">Welt</span></button></nav><div id="notice"></div><button id="auto" class="click">⚡ AUTO AN</button><div id="controls"><div id="stick"><div id="knob"></div></div><button id="fire"><span>💥</span>FEUER</button></div><div id="bottom"><div id="boosters" class="click">
+<button class="boost-card" data-boost="atk"><span class="boost-title">Power</span><span class="boost-level" id="boost-atk-level">Lv.1</span><span class="boost-symbol"><svg class="cute-icon" viewBox="0 0 72 72" aria-hidden="true"><path d="M35 6Q42 4 45 18L56 12Q64 13 59 27L68 34Q71 41 57 45L59 57Q55 64 43 57L34 68Q27 68 24 55L10 59Q3 54 12 43L5 33Q4 26 18 24L18 11Q24 5 35 17Z" fill="#ff8a77" stroke="#9c4675" stroke-width="4" stroke-linejoin="round"/><path d="M35 14L41 26L51 21L48 33L59 38L46 42L49 52L36 47L27 58L25 44L13 39L27 34L25 21Z" fill="#ffdb82"/><ellipse cx="29" cy="35" rx="3" ry="4" fill="#51384e"/><ellipse cx="43" cy="35" rx="3" ry="4" fill="#51384e"/><path d="M32 43Q36 48 40 43" fill="none" stroke="#51384e" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="21" cy="42" rx="5" ry="3" fill="#ff94a6"/><ellipse cx="51" cy="42" rx="5" ry="3" fill="#ff94a6"/><circle cx="28" cy="33" r="1" fill="white"/><circle cx="42" cy="33" r="1" fill="white"/></svg><small>x4</small></span><strong id="boost-atk-value">19</strong><span class="boost-cost">💵 <b id="boost-atk-cost">60</b></span></button>
+<button class="boost-card" data-boost="rate"><span class="boost-title">Speed</span><span class="boost-level" id="boost-rate-level">Lv.1</span><span class="boost-symbol"><svg class="cute-icon" viewBox="0 0 72 72" aria-hidden="true"><path d="M39 5L13 39Q10 44 19 45H33L28 65Q27 70 33 66L61 31Q65 25 56 25H43L47 8Q48 3 39 5Z" fill="#9cecff" stroke="#4a80b9" stroke-width="4" stroke-linejoin="round"/><path d="M38 13L21 38H36L32 56L53 31H39Z" fill="#e5fbff"/><ellipse cx="30" cy="35" rx="2.8" ry="3.4" fill="#355579"/><ellipse cx="43" cy="35" rx="2.8" ry="3.4" fill="#355579"/><path d="M33 42Q37 46 40 42" fill="none" stroke="#355579" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="25" cy="41" rx="4" ry="2.5" fill="#ffa5be"/><ellipse cx="48" cy="41" rx="4" ry="2.5" fill="#ffa5be"/><path d="M10 19L14 14M56 53L61 58" stroke="#e3faff" stroke-width="4" stroke-linecap="round"/></svg><small>x4</small></span><strong id="boost-rate-value">1.7</strong><span class="boost-cost">💵 <b id="boost-rate-cost">85</b></span></button>
+<button class="boost-card" data-boost="moneyBoost"><span class="boost-title">Money</span><span class="boost-level" id="boost-moneyBoost-level">Lv.1</span><span class="boost-symbol"><svg class="cute-icon" viewBox="0 0 72 72" aria-hidden="true"><rect x="8" y="14" width="56" height="45" rx="13" fill="#67cfa0" stroke="#3b8e83" stroke-width="4"/><rect x="14" y="20" width="44" height="33" rx="9" fill="#b2efad" stroke="#66b99a" stroke-width="2"/><circle cx="36" cy="37" r="14" fill="#f7df88" stroke="#d3b15c" stroke-width="2"/><ellipse cx="31" cy="34" rx="2.7" ry="3.5" fill="#4d6855"/><ellipse cx="41" cy="34" rx="2.7" ry="3.5" fill="#4d6855"/><path d="M32 42Q36 47 40 42" fill="none" stroke="#4d6855" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="24" cy="41" rx="4" ry="2.5" fill="#ffa6aa"/><ellipse cx="48" cy="41" rx="4" ry="2.5" fill="#ffa6aa"/><path d="M11 7L13 12L18 14L13 16L11 21L9 16L4 14L9 12Z" fill="#fff3a6"/><path d="M59 57L61 62L66 64L61 66L59 71L57 66L52 64L57 62Z" fill="#fff3a6"/></svg><small>x4</small></span><strong id="boost-moneyBoost-value">x1.0</strong><span class="boost-cost">💵 <b id="boost-moneyBoost-cost">100</b></span></button>
+</div><div id="stats"><span>⚔️ <i id="atk">0</i></span><span>💨 <i id="rate">0</i>/s</span><span>🐾 <i id="petcount">0</i></span></div></div><div id="skinShade" aria-hidden="true"><div id="skinSheet" role="dialog" aria-modal="true" aria-label="Hunde-Skins"><div class="skinHeader"><h2>Hunde-Skins</h2><button id="skinClose" aria-label="Schliessen">×</button></div><p class="skinDesc">Jeder gekaufte Skin schenkt dir permanente Boni. Alle Boni werden addiert – egal, welchen Skin du trägst.</p><div class="skinStats" id="skinStats"></div><div class="skinGrid" id="skinGrid"></div><div class="skinFooter" id="skinFooter"></div></div></div><div id="fusionShade" aria-hidden="true"><div id="fusionSheet" role="dialog" aria-modal="true" aria-label="Pet-Verschmelzen">
+<div class="fusionTop"><span style="width:38px">💗</span><h2>✨ Verschmelzen ✨</h2><button class="fusionClose" id="fusionX" aria-label="Schliessen">×</button></div>
+<div class="fusionHint">Zieh zwei gleiche Bilder aufeinander · Tippe zum Ausrüsten / Abwählen</div>
+<div class="fusionSection">Deine 3 Begleiter</div><div id="fusionEquipped"></div>
+<div class="fusionSection">Deine Pet-Sammlung</div><div id="fusionInventory"></div>
+<div class="fusionActions"><button class="fusionPage" id="fusionPrev" aria-label="Vorherige Seite">‹</button><button class="fusionBuy" id="fusionBuy">Frosch kaufen · 50 💎</button><button class="fusionPage" id="fusionNext" aria-label="Nächste Seite">›</button></div>
+<div id="fusionCount"></div>
+</div></div><img id="fusionGhost" alt=""><div id="overlay"><div id="dialog"><h2 id="heading"></h2><div id="items"></div><button id="close">⬅️ Zurück zum Abenteuer</button></div></div><div id="start"><div class="welcome plate"><div style="font-size:70px">🐶⚔️🌳</div><h1>DOG GUNNER</h1><b>CHUBBY KAWAII PETS</b><p>Jetzt mit weicheren HD-Sprites, leuchtenden Zaubereffekten und einer noch schöneren Fantasy-Welt! Zerstöre magische Bäume, sammle Pets, verbessere deine Waffen und besiege riesige Bosse.</p><button id="play">▶ SPIELEN</button><p style="font-size:11px">Offline spielbar nach dem Laden · Fortschritt wird lokal gespeichert</p></div></div></div><script>
+(()=>{'use strict';const $=x=>document.getElementById(x),c=$('game'),g=c.getContext('2d',{alpha:false});const sprites={};for(const [key,path] of Object.entries({dogs:'assets/dogs.png',pets:'assets/pets.png',trees:'assets/trees.png'})){let img=new Image();img.src=path;sprites[key]=img;}function sprite(key,frame,row,sw,sh,x,y,w,h){let im=sprites[key];if(im&&im.complete&&im.naturalWidth){g.save();g.shadowColor='#142a4b55';g.shadowBlur=9;g.shadowOffsetY=5;g.drawImage(im,frame*sw,row*sh,sw,sh,Math.round(x),Math.round(y),w,h);g.restore();return true}return false;}const worlds=[['🌳 Zauberwald','#88d5ff','#79bf68','#4a9956'],['🍬 Zuckerland','#ffc5eb','#f6a8d2','#db80ae'],['❄️ Eisberge','#a6ddff','#a3d7e6','#71b0d5'],['🌋 Vulkan','#e9a17e','#ae6656','#74434b'],['🌙 Mondgarten','#6676bc','#6867a7','#434a82'],['🌈 Sternenwelt','#e3a7f5','#8c80d8','#6961b5']];const skins=[
+ ['Classic Pup',0,0,0,0],['Aviator Pup',90,10,5,12],['Panda Pup',180,17,9,21],
+ ['Cyber Pup',300,27,14,33],['Unicorn Pup',450,38,20,46],['Dino Pup',650,50,26,60],
+ ['Royal Pup',900,63,32,75],['Summer Pup',1250,75,38,90]
+];
+const skinImages=skins.map((_,i)=>{let im=new Image();im.src='assets/skin-'+i+'.png';return im});
+function skinBonuses(){let b=[0,0,0];for(let i of s.unlocked){if(skins[i])for(let k=0;k<3;k++)b[k]+=skins[i][k+2]}return b}
+const pets=[['🐸','Chubby Frosch'],['🐝','Chubby Biene'],['🐼','Chubby Panda'],['🐺','Chubby Wolf'],['🐮','Chubby Highlandrind']];
+const petBonuses=[['💨','Feuerrate',.025],['💰','Münzen',.05],['⚔️','Schaden',.07],['🐾','Pet-Schaden',.09],['✨','Alle Boni',.035]];
+const petArt=[1,0,2,3,4];const chubbyNames=['bee','frog','panda','wolf','highland'],chubbyImages=chubbyNames.map(name=>{const im=new Image();im.src='assets/chubby-'+name+'.png';return im;});
+function drawChubby(kind,x,y,index,tier){
+ const im=chubbyImages[kind];if(!im||!im.complete||!im.naturalWidth)return false;
+ const bee=kind===0,moving=petWalkAmount>.2,phase=time*(bee?5:8)+index*1.6,step=moving?Math.sin(phase):0,bounce=bee?Math.sin(time*3.7+index)*5:Math.abs(step)*2;
+ const w=kind===4?72:kind===1?65:kind===3?68:63,h=w*(im.naturalHeight/im.naturalWidth);
+ const baseY=y+bounce;
+ g.save();
+ // Soft oval contact shadow and volumetric backlighting
+ g.fillStyle='#253a4560';g.beginPath();g.ellipse(x,y+h*.39+8,24,6,0,0,Math.PI*2);g.fill();
+ g.translate(x,baseY);
+ let shade=['#ffd78c','#a3e6a4','#fff3f3','#bdd2e8','#f7d3ac'][kind];
+ let edge=['#d9a357','#70ba84','#dfb8ce','#7995b9','#cb986f'][kind];
+ // Rounded feet, alternating strides; wings for the bee
+ if(bee){
+   for(let side of [-1,1]){
+    g.save();g.translate(side*21,-h*.15);
+    g.rotate(side*(.23+Math.sin(time*19+side)*.22));
+    g.fillStyle='#e9f9ffb9';g.strokeStyle='#ffffffdd';g.lineWidth=2;
+    g.beginPath();g.ellipse(side*13,-12,13,22,side*.35,0,Math.PI*2);g.fill();g.stroke();g.restore();
+   }
+ }else{
+   for(let side of [-1,1]){
+    let swing=moving?Math.sin(phase+(side===1?Math.PI:0))*5:0;
+    let fx=side*17+swing,fy=h*.33+Math.abs(swing)*.24;
+    let grad=g.createRadialGradient(fx-3,fy-4,2,fx,fy+2,15);
+    grad.addColorStop(0,'#ffffff');grad.addColorStop(.22,shade);grad.addColorStop(1,edge);
+    g.fillStyle=grad;g.beginPath();g.ellipse(fx,fy,12,10,side*.1,0,Math.PI*2);g.fill();
+    g.strokeStyle='#ffffff88';g.lineWidth=1.5;g.stroke();
+   }
+ }
+ // Soft body volume under original illustrated PNG
+ let body=g.createRadialGradient(-w*.16,-h*.18,2,0,0,w*.5);
+ body.addColorStop(0,'#ffffffb5');body.addColorStop(.48,shade);body.addColorStop(1,edge);
+ g.fillStyle=body;g.beginPath();g.ellipse(0,0,w*.40,h*.39,0,0,Math.PI*2);g.fill();
+ g.rotate(bee?Math.sin(time*3+index)*.06:step*.035);
+ g.shadowColor='#31465a66';g.shadowBlur=8;g.shadowOffsetY=4;
+ g.drawImage(im,-w/2,-h/2,w,h);
+ g.shadowBlur=0;g.shadowOffsetY=0;
+ g.globalAlpha=.18;g.fillStyle='#fff';g.beginPath();g.ellipse(-w*.19,-h*.23,w*.14,h*.075,-.5,0,Math.PI*2);g.fill();
+ g.restore();
+ return true
+}
+const guns=[['🔫','Holzblaster',1,0],['💛','Honigkanone',1.6,350],['❄️','Frostwerfer',2.4,1200],['🌟','Sternenlaser',3.8,3500],['🔥','Drachenfeuer',6,10000],['🌈','Regenbogenwerfer',10,30000]];const base={coins:250,gems:70,level:1,xp:0,wave:1,area:1,atk:1,rate:1,moneyBoost:1,gun:0,gunOwned:[0],skin:0,unlocked:[0],pets:[{kind:0,tier:1}],petInventory:[{kind:0,tier:1}],petMigrationV2:true,kills:0,bosses:0,totalCoins:0,crit:1,petBoost:1,questsClaimed:{},giftDay:'',sound:true,auto:true};let s;try{s=Object.assign({},base,JSON.parse(localStorage.getItem('doggunner-grand-v1')||'{}'))}catch{s={...base}};for(const k of ['pets','unlocked','gunOwned'])if(!Array.isArray(s[k]))s[k]=base[k];// Existing saves: preserve collected pets and convert old Biene(0)/Frosch(1) IDs.
+if(!s.petMigrationV2){
+ let old=Array.isArray(s.pets)?s.pets:[];
+ s.petInventory=old.map(p=>({kind:p.kind===0?1:p.kind===1?0:Math.min(4,Math.max(0,p.kind||0)),tier:1}));
+ if(!s.petInventory.length)s.petInventory=[{kind:0,tier:1}];
+ s.pets=s.petInventory.slice(0,3).map(p=>({...p}));s.petMigrationV2=true;
+}
+if(!Array.isArray(s.petInventory))s.petInventory=s.pets.map(p=>({...p}));
+s.petInventory=s.petInventory.filter(p=>p&&Number.isInteger(p.kind)&&p.kind>=0&&p.kind<5).map(p=>({kind:p.kind,tier:1}));
+if(!s.petInventory.length)s.petInventory=[{kind:0,tier:1}];
+s.pets=s.pets.filter(p=>p&&p.kind>=0&&p.kind<5).slice(0,3).map(p=>({kind:p.kind,tier:1}));
+function petBonus(kind){return s.pets.filter(p=>p.kind===kind).length*petBonuses[kind][2]}
+function collectFrog(){s.petInventory.push({kind:0,tier:1});flash('🐸 Neuer Chubby Frosch!')}
+function equipPet(index){
+ let item=s.petInventory[index];if(!item)return;
+ let equippedCount=s.pets.filter(p=>p.kind===item.kind).length;
+ let ownedCount=s.petInventory.filter(p=>p.kind===item.kind).length;
+ if(equippedCount>=ownedCount)return flash('🐾 Alle Exemplare bereits ausgerüstet');
+ if(s.pets.length>=3)return flash('🐾 Maximal 3 Begleiter! Erst einen abwählen');
+ s.pets.push({...item});flash('💖 Pet begleitet dich!')
+}
+function unequipPet(index){s.pets.splice(index,1);flash('🐾 Pet abgewählt')}
+function fusePet(){
+ for(let kind=0;kind<4;kind++){
+ let indexes=[];s.petInventory.forEach((p,i)=>{if(p.kind===kind)indexes.push(i)});
+ if(indexes.length<2)continue;
+ let next=kind+1;
+ let kept=s.petInventory.filter((p,i)=>!indexes.slice(0,2).includes(i));
+ kept.push({kind:next,tier:1});s.petInventory=kept;
+ let remove=2;s.pets=s.pets.filter(p=>{if(p.kind===kind&&remove>0){remove--;return false}return true});
+ // Equipped pets must never exceed inventory quantity.
+ for(let k=0;k<5;k++){let allowed=s.petInventory.filter(p=>p.kind===k).length,seen=0;s.pets=s.pets.filter(p=>p.kind!==k||++seen<=allowed)}
+ if(s.pets.length<3)s.pets.push({kind:next,tier:1});
+ flash('✨ '+pets[kind][1]+' → '+pets[next][1]+'!');return true;
+ }
+ flash('✨ Du brauchst 2 gleiche Pets (ausser Highlandrind)');return false
+}
+s.unlocked=[...new Set(s.unlocked.filter(i=>Number.isInteger(i)&&i>=0&&i<skins.length))];if(!s.unlocked.includes(0))s.unlocked.unshift(0);if(!s.unlocked.includes(s.skin))s.skin=0;
+if(s.wave>5){s.area=Math.max(1,(s.area||1)+Math.floor((s.wave-1)/5));s.wave=((s.wave-1)%5)+1}if(!s.questsClaimed||typeof s.questsClaimed!=='object')s.questsClaimed={};let W=0,H=0,D=1,ground=0,cam=0,time=0,previous=0,paused=true,page='upgrade',move=0,shooting=false,auto=s.auto,shots=[],sparks=[],floats=[],targets=[],decor=[],cooldown=0,petClock=0,shake=0,combo=0,comboTimer=0;let hero={x:130,y:0};let cameraY=0,walkPhase=0;const R=(a,b)=>a+Math.random()*(b-a),clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),fmt=n=>Math.floor(n).toLocaleString('de-CH');function save(){try{localStorage.setItem('doggunner-grand-v1',JSON.stringify(s))}catch{}}addEventListener('pagehide',save);setInterval(save,6000);function resize(){W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,3);c.width=Math.floor(W*D);c.height=Math.floor(H*D);g.setTransform(D,0,0,D,0,0);g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';ground=H-Math.max(110,Math.min(145,H*.2))-12}addEventListener('resize',resize);resize();function box(x,y,w,h,col){g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}function disk(x,y,r,col){g.fillStyle=col;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill()}function line(x,y,xx,yy,col,w=2){g.strokeStyle=col;g.lineWidth=w;g.beginPath();g.moveTo(x,y);g.lineTo(xx,yy);g.stroke()}function label(st,x,y,sz=16,col='#fff'){g.font=`1000 ${sz}px system-ui`;g.textAlign='center';g.lineWidth=3;g.strokeStyle='#263049';g.strokeText(st,x,y);g.fillStyle=col;g.fillText(st,x,y)}function flash(st){$('notice').textContent=st;$('notice').style.opacity=1;clearTimeout(flash.timer);flash.timer=setTimeout(()=>$('notice').style.opacity=0,1350)}function strength(){return (12+s.atk*7)*guns[s.gun][2]*(1+petBonus(2)+petBonus(4))*(1+skinBonuses()[0]/100)}
+function speed(){return Math.min(12,(1.7+(s.rate-1)*.27)*(1+petBonus(0)+petBonus(4))*(1+skinBonuses()[1]/100))}function stageNumber(){return ((s.wave-1)%5)+1}
+function stageLength(){return 5+(stageNumber()-1)*2}
+function waveSize(){return stageLength()*4+(stageNumber()===5?1:0)}
+function spawnStage(){
+ targets.length=0;shots.length=0;
+ const stage=stageNumber(),rows=4,columns=stageLength(),spacingX=106,spacingY=105;
+ const originX=hero.x+240,originY=hero.y-1.5*spacingY;
+ const hp=Math.round(60*(1+(s.area-1)*.42+(stage-1)*.22));
+ for(let col=0;col<columns;col++)for(let row=0;row<rows;row++){
+  const x=originX+col*spacingX,y=originY+row*spacingY;
+  targets.push({x,y,hp,max:hp,boss:false,type:'tree',r:37,hurt:0,seed:0,col,row});
+ }
+ if(stage===5){let max=Math.round(hp*3.5);targets.push({x:originX+columns*spacingX+125,y:hero.y,hp:max,max,boss:true,type:'gold',r:67,hurt:0,seed:0,col:columns,row:1.5})}
+}
+function spawn(){spawnStage();return targets[0]}
+function ensureTargets(){if(!targets.length)spawnStage()}
+function particle(x,y,col,n=9){for(let i=0;i<n;i++)sparks.push({x,y,vx:R(-130,130),vy:R(-210,-40),life:R(.3,.9),size:R(2,6),col})}function floating(x,y,st,col='#fff5a4'){floats.push({x,y,st,col,life:1})}function levelCheck(){while(s.xp>=s.level*90){s.xp-=s.level*90;s.level++;s.gems+=2;flash('⭐ LEVEL UP! +2 💎');particle(hero.x,ground-40,'#fff2a0',24)}}function finishTarget(a){
+ particle(a.x,projectY(a.y)-65,a.boss?'#ffe98b':'#ffdb69',a.boss?45:12);
+ shake=a.boss?8:2;
+ const ix=targets.indexOf(a);if(ix>=0)targets.splice(ix,1);
+ let reward=Math.floor((a.boss?260:30)*(1+s.area*.38+stageNumber()*.13)*(1+(s.moneyBoost-1)*.2)*(1+petBonus(1)+petBonus(4))*(1+skinBonuses()[2]/100));
+ s.coins+=reward;s.totalCoins+=reward;s.xp+=a.boss?110:20;s.kills++;
+ if(a.boss){s.bosses++;s.gems+=12;flash('👑 GOLD-BAUM BESIEGT! +12 💎')}
+ else if(Math.random()<.08)s.gems++;
+ floating(a.x,projectY(a.y)-90,'🪙 +'+reward);levelCheck();combo++;comboTimer=3;
+ s.waveProgress=(s.waveProgress||0)+1;
+ if(!targets.length){s.waveProgress=0;s.wave++;s.unlocked=[...new Set(s.unlocked.filter(i=>Number.isInteger(i)&&i>=0&&i<skins.length))];if(!s.unlocked.includes(0))s.unlocked.unshift(0);if(!s.unlocked.includes(s.skin))s.skin=0;
+if(s.wave>5){s.wave=1;s.area++;flash('🌈 NEUE WELT '+s.area+'!')}else flash('🎉 STAGE GESCHAFFT!');spawnStage()}
+ save()
+}
+function damage(a,n){if(!targets.includes(a))return;let crit=Math.random()<.07+s.crit*.012;let d=Math.round(n*(crit?2:1));a.hp-=d;a.hurt=.13;particle(a.x,projectY(a.y)-a.r,'#ffe27b',crit?11:4);floating(a.x+R(-15,15),projectY(a.y)-a.r-R(8,25),(crit?'💥 ':'')+'-'+fmt(d),crit?'#ff9fb3':'#fff4a2');if(a.hp<=0)finishTarget(a)}function shoot(petIndex=-1){let a=targets[0];if(!a)return;let p=petIndex>=0?s.pets[petIndex]:null;let pos=p?petFollowPosition(petIndex):hero;let x=pos.x+(p?15:29),y=pos.y;shots.push({x,y,a,vel:p?440:650,damage:p?strength()*.35*s.petBoost*(1+petBonus(3)+petBonus(4)):strength(),pet:!!p,gun:s.gun});particle(x,y,p?'#adf5ff':'#fff0a3',p?2:4)}function update(dt){time+=dt;if(paused)return;let next=targets[0];if(next){let dx=next.x-hero.x,dy=next.y-hero.y,dist=Math.hypot(dx,dy)||1,stop=next.boss?133:112;
+if(dist>stop){let step=Math.min(dist-stop,dt*155*(1+skinBonuses()[1]/100));hero.x+=dx/dist*step;hero.y+=dy/dist*step;walkPhase+=dt*11;}}
+// During the boss fight, keep the boss centered in the available playfield.
+let bossFocus=targets.length===1&&targets[0].boss?targets[0]:null;
+let cameraGoal=bossFocus?bossFocus.x-W*.5:hero.x-W*.43;
+cam+=(cameraGoal-cam)*Math.min(1,dt*(bossFocus?2.6:3.7));
+let cameraYGoal=bossFocus?bossFocus.y-(H*.46-H*.51)/.72:hero.y;
+cameraY+=(cameraYGoal-cameraY)*Math.min(1,dt*(bossFocus?2.6:3.7));updatePetTrail(dt);cooldown-=dt;if(cooldown<=0&&targets.length&&Math.hypot(targets[0].x-hero.x,targets[0].y-hero.y)<205){shoot();cooldown=1/speed()}petClock-=dt;if(petClock<=0&&s.pets.length){for(let i=0;i<Math.min(3,s.pets.length);i++)shoot(i);petClock=Math.max(.3,1.5-s.petBoost*.1)}for(const a of targets){a.hurt=Math.max(0,a.hurt-dt)}for(let i=shots.length-1;i>=0;i--){let p=shots[i];if(!targets.includes(p.a)){shots.splice(i,1);continue}let dx=p.a.x-p.x,dy=p.a.y-p.y,dist=Math.hypot(dx,dy)||1,step=p.vel*dt;p.x+=dx/dist*step;p.y+=dy/dist*step;if(dist<step+15){damage(p.a,p.damage);shots.splice(i,1)}}for(let i=sparks.length-1;i>=0;i--){let p=sparks[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=350*dt;p.life-=dt;if(p.life<=0)sparks.splice(i,1)}for(let i=floats.length-1;i>=0;i--){floats[i].y-=45*dt;floats[i].life-=dt;if(floats[i].life<=0)floats.splice(i,1)}shake=Math.max(0,shake-24*dt);comboTimer-=dt;if(comboTimer<=0)combo=0;hud()}const petTrail=[];
+let petWalkAmount=0;
+function updatePetTrail(dt){
+ const prev=petTrail[0]||{x:hero.x,y:hero.y};
+ petWalkAmount=Math.hypot(hero.x-prev.x,hero.y-prev.y);
+ petTrail.unshift({x:hero.x,y:hero.y});
+ if(petTrail.length>130)petTrail.length=130;
+}
+function petFollowPosition(i){
+ const delays=[16,26,37],lag=petTrail[Math.min(petTrail.length-1,delays[i])]||{x:hero.x-80,y:hero.y};
+ const ahead=petTrail[Math.min(petTrail.length-1,Math.max(0,delays[i]-7))]||{x:hero.x,y:hero.y};
+ let dx=ahead.x-lag.x,dy=ahead.y-lag.y,len=Math.hypot(dx,dy);
+ if(len<.1){dx=1;dy=0;len=1}
+ const nx=-dy/len,ny=dx/len;
+ // Staggered diagonal formation: upper left, centre, lower right, behind dog.
+ const offsets=[-52,0,52];
+ const back=55+i*18;
+ return {x:lag.x-dx/len*back+nx*offsets[i],y:lag.y-dy/len*back+ny*offsets[i]};
+}
+function projectY(y){return H*.51+(y-cameraY)*.72}
+function background(){
+ let phase=(s.area-1)%6;
+ const themes=[['#a8e2a0','#7acb8e','#5ca66d'],['#ffe0eb','#ffc3d6','#d98ab4'],['#c5efff','#a6dce9','#78b7d1'],['#f8d2aa','#e9ad80','#a9766c'],['#b9b1e7','#9b8ed2','#7167b3'],['#c2e3ee','#9cc5d9','#7799b5']];
+ let [grass,grass2,edge]=themes[phase];
+ box(0,0,W,H,grass);
+ let tile=86,ox=((cam%tile)+tile)%tile,oy=((cameraY*.72%tile)+tile)%tile;
+ for(let iy=-1;iy<H/tile+2;iy++)for(let ix=-1;ix<W/tile+2;ix++){
+ let x=ix*tile-ox,y=iy*tile-oy,seed=(ix*17+iy*23+Math.floor(cam/tile)*17+Math.floor(cameraY*.72/tile)*23);
+ box(x,y,tile,tile,(ix+iy)%2?grass:grass2);
+ for(let j=0;j<4;j++){let px=x+13+(j*29+seed*7%17+tile)%tile,py=y+12+(j*23+seed*3%31+tile)%tile;
+ if(j%3===0){disk(px,py,4,'#fff6d5');disk(px-4,py,3,'#ffd7e7');disk(px+4,py,3,'#ffe5f0');disk(px,py,2,'#ffca5f')}
+ else{disk(px,py,2,'#e7f7b6');line(px-4,py+4,px,py-3,edge,1.5);line(px,py-3,px+4,py+4,edge,1.5)}}}
+ // A winding sandy pathway running across the field, seen from above
+ let pathY=H*.52-cameraY*.72;
+ g.save();g.globalAlpha=.68;
+ for(let x=-35;x<W+55;x+=13){let y=pathY+Math.sin((x+cam)*.007)*27;
+ disk(x,y,68,'#f3dfb4');disk(x,y,49,'#f8e7c6')}
+ g.restore();
+ // soft ground decorations with circular shadows
+ for(let i=-1;i<12;i++){let wx=Math.floor(cam/230)*230+i*230+90,wy=Math.sin(wx*.013)*105+((i%3)-1)*70;
+ let x=wx-cam,y=projectY(wy);
+ if(y<95||y>H-70)continue;
+ g.fillStyle='#3b6e6250';g.beginPath();g.ellipse(x,y+12,25,9,0,0,Math.PI*2);g.fill();
+ disk(x,y-2,19,i%2?'#4fa88b':'#79c7a1');disk(x-8,y-8,12,'#a2e4af');disk(x+9,y-10,11,'#70bb9b');
+ for(let j=0;j<3;j++)disk(x-11+j*9,y-13+(j%2)*4,3,'#f5d7ef')}
+}
+const bodyImages=skins.map((_,i)=>{let im=new Image();im.src='assets/body-'+i+'.png';return im});
+const skinFur=['#f1c58f','#dba264','#e8e0db','#333a4a','#ffe5ee','#dba55d','#f3d8b6','#e9c18b'];
+const weaponColors=['#eeb05c','#eac254','#7cc8ff','#d9a4ff','#f28769','#94e4be'];
+function drawHeldWeapon(x,y,k=1){
+ const idx=Math.max(0,Math.min(guns.length-1,s.gun|0)),col=weaponColors[idx];
+ g.save();g.translate(x,y);
+ // Shared independent gun sprite: only the weapon menu changes this layer.
+ g.shadowColor='#24304770';g.shadowBlur=6;g.shadowOffsetY=3;
+ g.fillStyle='#535565';g.beginPath();g.roundRect(-5,-8,36,17,6);g.fill();
+ g.fillStyle=col;g.beginPath();g.roundRect(2,-6,24,13,5);g.fill();
+ g.fillStyle='#484252';g.beginPath();g.roundRect(22,-11,16,22,6);g.fill();
+ g.fillStyle=col;g.beginPath();g.ellipse(37,0,9,11,0,0,Math.PI*2);g.fill();
+ g.fillStyle='#fff8d8';g.beginPath();g.ellipse(39,0,5,7,0,0,Math.PI*2);g.fill();
+ g.fillStyle='#63505b';g.beginPath();g.roundRect(1,8,9,17,3);g.fill();
+ g.strokeStyle='#ffffffb0';g.lineWidth=2;g.beginPath();g.moveTo(5,-4);g.lineTo(18,-4);g.stroke();
+ g.restore();
+}
+function drawDog(x,y,skin=0,k=1){
+ // The transparent WebGL layer renders the actual animated 3D character.
+ // Keep the previous sprite as a fallback until the 3D model loads.
+ const ready=window.dog3DReady&&window.dog3DReady[skin];
+ if(window.dog3DFrame)window.dog3DFrame({x,y,skin,gun:s.gun,walking:petWalkAmount>.2&&!paused,phase:walkPhase,shooting:shooting});
+ if(!ready){
+  const im=bodyImages[skin];
+  if(im&&im.complete&&im.naturalWidth)g.drawImage(im,x-48*k,y-102*k,96*k,105*k);
+  else sprite('dogs',Math.floor(time*8)%8,0,96,96,x-48*k,y-96*k,96*k,96*k);
+ }
+}
+function treePalette(){
+ const colors=[['#68c976','#419d61','#b2ee92','#76503a'],['#f4a3ca','#db6fa8','#ffe0f1','#9a667d'],['#9fe6f1','#67b9dc','#e9fbff','#718caa'],['#ffab73','#e77c58','#ffe29c','#79525a'],['#aaa1ec','#7166c9','#e2d9ff','#6b527e'],['#a8df83','#5dbb9b','#fff2a7','#79635a']];
+ const n=Math.max(0,s.area-1),p=colors[n%colors.length];
+ if(n<colors.length)return p;
+ // After the first six worlds, generate new palettes forever.
+ const hue=(n*67+97)%360;
+ return [`hsl(${hue} 64% 68%)`,`hsl(${hue} 48% 44%)`,`hsl(${(hue+22)%360} 83% 85%)`,`hsl(${(hue+172)%360} 29% 42%)`];
+}
+function drawTree(a){
+ const boss=a.boss,k=boss?1.48:.78,x=a.x-cam+(a.hurt?R(-2,2):0),y=projectY(a.y);
+ const palette=treePalette(),light=boss?'#fff4a1':palette[2],mid=boss?'#f7c746':palette[0],dark=boss?'#b98719':palette[1],bark=boss?'#c99a29':palette[3];
+ const sway=Math.sin(time*1.35+(boss?0:s.area*.5))*(boss?2.6:1.8)*k;
+ g.save();
+ // Rounded soft shadow grounds each tree in the world.
+ g.fillStyle='#304f3e48';g.beginPath();g.ellipse(x,y+2,37*k,10*k,0,0,Math.PI*2);g.fill();
+ // Rounded tapered trunk and branching boughs, using only smooth strokes.
+ g.lineCap='round';g.lineJoin='round';
+ let trunk=g.createLinearGradient(x-17*k,0,x+17*k,0);trunk.addColorStop(0,boss?'#93671c':'#624b3e');trunk.addColorStop(.5,bark);trunk.addColorStop(.78,boss?'#ffe28b':'#b58b68');trunk.addColorStop(1,boss?'#a67a20':'#694e3f');
+ g.strokeStyle=trunk;g.lineWidth=24*k;g.beginPath();g.moveTo(x,y-7*k);g.bezierCurveTo(x+4*k,y-32*k,x-4*k+sway,y-71*k,x+sway,y-115*k);g.stroke();
+ g.lineWidth=10*k;g.beginPath();g.moveTo(x,y-56*k);g.quadraticCurveTo(x-30*k,y-87*k,x-33*k+sway,y-106*k);g.moveTo(x,y-68*k);g.quadraticCurveTo(x+28*k,y-86*k,x+34*k+sway,y-111*k);g.stroke();
+ // Bark engravings: delicate curved lines, no square corners.
+ g.strokeStyle=boss?'#fff0a0a8':'#ead0aa80';g.lineWidth=2*k;
+ for(let j=0;j<4;j++){let yy=y-(16+j*15)*k;g.beginPath();g.moveTo(x-5*k,yy);g.quadraticCurveTo(x+2*k,yy-5*k,x+4*k,yy-10*k);g.stroke()}
+ // Voluminous rounded canopy clusters with radial light and gentle movement.
+ g.shadowColor=boss?'#ffd45488':'#233b2c33';g.shadowBlur=(boss?20:7)*k;
+ const blobs=[[-36,-106,29],[34,-106,29],[-27,-137,36],[22,-144,36],[0,-120,41],[-2,-162,30]];
+ for(let j=0;j<blobs.length;j++){
+  let [dx,dy,r]=blobs[j],xx=x+(dx+sway*(.65+j*.06))*k,yy=y+(dy+Math.sin(time*1.2+j)*1.2)*k;
+  let grad=g.createRadialGradient(xx-r*k*.35,yy-r*k*.42,1,xx,yy,r*k*1.1);
+  grad.addColorStop(0,light);grad.addColorStop(.48,mid);grad.addColorStop(1,dark);
+  g.fillStyle=grad;g.beginPath();g.arc(xx,yy,r*k,0,Math.PI*2);g.fill();
+ }
+ g.shadowBlur=0;
+ // Individual leaf shapes with rounded ends, same design for every tree in a world.
+ for(let j=0;j<23;j++){
+  let a1=j*2.399963,rr=(18+(j*17)%32)*k;
+  let xx=x+Math.cos(a1)*rr+sway*k,yy=y-132*k+Math.sin(a1)*rr*.83;
+  g.save();g.translate(xx,yy);g.rotate(a1+Math.sin(time*1.7+j)*.09);
+  g.fillStyle=j%4===0?light:j%3===0?dark:mid;
+  g.beginPath();g.ellipse(0,0,6*k,3.3*k,.4,0,Math.PI*2);g.fill();
+  g.strokeStyle=boss?'#fff6c0aa':'#ffffff70';g.lineWidth=.9*k;g.beginPath();g.moveTo(-4*k,0);g.lineTo(4*k,0);g.stroke();g.restore();
+ }
+ if(boss){g.fillStyle='#fff8c8';for(let j=0;j<9;j++){let angle=j*2.4+time*.65,xx=x+Math.cos(angle)*(57+j%3*8)*k,yy=y-128*k+Math.sin(angle)*(56+j%3*7)*k;g.beginPath();g.arc(xx,yy,(j%3+1)*k,0,Math.PI*2);g.fill()}}
+ g.restore();
+ const width=(boss?112:67)*k,by=y-(boss?211:188)*k;
+ g.fillStyle='#26334dbb';g.beginPath();g.roundRect(x-width/2,by,width,10,5);g.fill();
+ g.fillStyle=boss?'#ffd75a':'#a1f5a6';g.beginPath();g.roundRect(x-width/2+2,by+2,Math.max(0,(width-4)*Math.max(0,a.hp)/a.max),6,3);g.fill();
+ if(boss)label('GOLD-BOSS',x,by-15,14,'#ffe59a');
+}
+function draw(){
+ g.save();if(shake)g.translate(R(-shake,shake),R(-shake,shake));
+ background();
+ for(let a of targets)if(a.x-cam>-170&&a.x-cam<W+170)drawTree(a);
+ for(let i=0;i<Math.min(3,s.pets.length);i++){
+ let p=s.pets[i],pos=petFollowPosition(i),x=pos.x-cam,y=projectY(pos.y);
+ let frame=Math.floor(time*5+i)%4;
+ if(!(p.kind<5&&drawChubby(petArt[p.kind],x,y,i,p.tier))&&!sprite('pets',frame,petArt[p.kind],64,64,x-28,y-28,56,56))disk(x,y,19,'#f5c5db');
+}
+ g.save();g.fillStyle='#244b4770';g.beginPath();g.ellipse(hero.x-cam,projectY(hero.y)-2,27,9,0,0,Math.PI*2);g.fill();g.restore();
+ drawDog(hero.x-cam,projectY(hero.y)+Math.sin(walkPhase)*2,s.skin,1.12);
+ // Little golden fireflies and floating pollen
+ for(let i=0;i<28;i++){let px=((i*179-cam*(.05+i%3*.05))%(W+80)+(W+80))%(W+80)-40;
+ let py=ground-35-((i*47)%Math.max(110,ground-65))+Math.sin(time*(.8+i%3*.2)+i)*9;
+ g.save();g.globalAlpha=.32+.24*Math.sin(time*2+i);g.shadowColor='#fff3a6';g.shadowBlur=9;
+ disk(px,py,1.6+i%3*.5,i%3?'#fff9b7':'#c9fff4');g.restore()}
+ for(const p of shots){
+  g.save();g.globalCompositeOperation='screen';g.shadowColor=p.pet?'#8fefff':'#ffc857';g.shadowBlur=23;
+  let x=p.x-cam,col=p.pet?'#8df3ff':['#ffdb70','#ffe48b','#8ce9ff','#efa8ff','#ff9567','#a6ffb0'][p.gun];
+  for(let j=3;j>=0;j--)disk(x-j*8,projectY(p.y)-42,Math.max(2,8-j*2),j%2?'#fff0b4':col);
+  disk(x,projectY(p.y)-42,5,'#fffdf0');g.restore()
+ }
+ for(const p of sparks){g.save();g.shadowBlur=12;g.shadowColor=p.col;disk(p.x-cam,p.y,p.size,p.col);g.restore()}
+ for(const f of floats)label(f.st,f.x-cam,f.y,15,f.col);
+ g.restore();if(combo>=3)label('🔥 COMBO x'+combo,W/2,Math.min(180,ground-120),16,'#ffe28b')
+}function boostCost(key){const config={atk:[60,1.32],rate:[85,1.39],moneyBoost:[100,1.36]};const [start,growth]=config[key];return Math.floor(start*Math.pow(growth,Math.max(0,s[key]-1)))}
+function refreshBoosts(){for(const key of ['atk','rate','moneyBoost']){const cost=boostCost(key);$('boost-'+key+'-level').textContent='Lv.'+s[key];$('boost-'+key+'-cost').textContent=fmt(cost);$('boost-'+key+'-value').textContent=key==='atk'?fmt(strength()):key==='rate'?speed().toFixed(1):'x'+(1+(s.moneyBoost-1)*.2)*(1+petBonus(1)+petBonus(4)).toFixed(1);const b=document.querySelector('[data-boost="'+key+'"]');b.classList.toggle('affordable',s.coins>=cost);b.disabled=s.coins<cost;}}
+function animateBoostPurchase(button){
+ button.classList.remove('boost-pop');void button.offsetWidth;button.classList.add('boost-pop');
+ const layer=document.createElement('span');layer.className='boost-burst';button.appendChild(layer);
+ for(let i=0;i<7;i++){const star=document.createElement('i');star.textContent=i%2?'✦':'♥';const angle=i*Math.PI*2/7;
+ star.style.setProperty('--dx',Math.round(Math.cos(angle)*48)+'px');star.style.setProperty('--dy',Math.round(Math.sin(angle)*40-13)+'px');
+ layer.appendChild(star)}
+ setTimeout(()=>{layer.remove();button.classList.remove('boost-pop')},740);
+}
+document.querySelectorAll('[data-boost]').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.boost,cost=boostCost(key);if(s.coins<cost){flash('🪙 Zu wenig Münzen');return}s.coins-=cost;s[key]++;refreshBoosts();hud();save();animateBoostPurchase(b);flash('✨ '+key.toUpperCase()+' LEVEL UP!')}));
+function hud(){refreshBoosts();$('lvl').textContent=s.level;$('xp').textContent=fmt(s.xp);$('gold').textContent=fmt(s.coins);$('diamonds').textContent=fmt(s.gems);$('world').textContent=s.area<=worlds.length?worlds[(s.area-1)%worlds.length][0]+' '+['Zauberwald','Zuckerland','Eisberge','Vulkan','Mondgarten','Sternenwelt'][(s.area-1)%worlds.length]:'🌿 Wunderwelt '+s.area;$('wave').textContent='Welt '+s.area+' · Stage '+stageNumber()+'/5';$('wavebar').style.width=(100*(s.waveProgress||0)/waveSize())+'%';$('atk').textContent=fmt(strength());$('rate').textContent=speed().toFixed(1);$('petcount').textContent=s.pets.length;let b=targets.find(x=>x.boss);$('bossbar').style.display=b?'block':'none';if(b)$('bosshp').style.width=Math.max(0,b.hp/b.max*100)+'%'}function entry(ico,title,desc,button,fn,disabled=false){let el=document.createElement('div');el.className='item';let icon=document.createElement('div');icon.className='ico';icon.textContent=ico;let info=document.createElement('div');info.className='info';let b=document.createElement('b');b.textContent=title;let sm=document.createElement('small');sm.textContent=desc;info.append(b,sm);let act=document.createElement('button');act.textContent=button;act.disabled=disabled;act.onclick=()=>{fn();save();hud();if(!paused)return;open(page)};el.append(icon,info,act);$('items').append(el)}function spend(kind,n,fn){if(s[kind]<n){flash(kind==='coins'?'🪙 Zu wenig Münzen':'💎 Zu wenig Diamanten');return} s[kind]-=n;fn()}const quests=[['Baumjäger',()=>s.kills,25,250,4],['Bossbezwinger',()=>s.bosses,3,450,12],['Sammler',()=>s.totalCoins,2500,600,10],['Abenteurer',()=>s.area,3,750,20]];function openSkins(){paused=true;$('skinShade').classList.add('open');$('skinShade').setAttribute('aria-hidden','false');renderSkins()}
+function closeSkins(){$('skinShade').classList.remove('open');$('skinShade').setAttribute('aria-hidden','true');paused=false;hud()}
+function renderSkins(){
+ let b=skinBonuses();$('skinStats').innerHTML=[['Power',b[0]],['Speed',b[1]],['Money',b[2]]].map(([n,v])=>'<div class="skinStat"><b>'+n+'</b><strong>+'+v+'%</strong><small>Gesamtbonus</small></div>').join('');
+ $('skinGrid').replaceChildren();
+ skins.forEach(([name,price,power,speed,money],i)=>{
+  let owned=s.unlocked.includes(i),active=s.skin===i;
+  let card=document.createElement('div');card.className='skinCard'+(active?' active':'');
+  let img=document.createElement('img');img.src='assets/skin-'+i+'.png';img.alt=name;
+  let title=document.createElement('h3');title.textContent=(i+1)+'. '+name;
+  let stats=document.createElement('div');stats.className='skinBonuses';stats.textContent='Power +'+power+'% · Speed +'+speed+'% · Money +'+money+'%';
+  let btn=document.createElement('button');btn.textContent=active?'AKTIV':owned?'ANZIEHEN':price+' 💎 KAUFEN';btn.disabled=active;
+  btn.onclick=()=>{
+   if(!owned){if(s.gems<price){flash('💎 Zu wenig Diamanten');return}s.gems-=price;s.unlocked.push(i)}
+   s.skin=i;save();hud();renderSkins();flash(owned?'Skin angezogen!':'Skin gekauft! Boni dauerhaft aktiviert!');
+  };card.append(img,title,stats,btn);$('skinGrid').append(card);
+ });$('skinFooter').textContent=s.unlocked.length+' / 8 Skins freigeschaltet · '+fmt(s.gems)+' Diamanten verfügbar';
+}
+$('skinClose').onclick=closeSkins;$('skinShade').addEventListener('click',e=>{if(e.target===$('skinShade'))closeSkins()});
+function open(name){if(name==='skins'){openSkins();return}if(name==='fusion'||name==='pets'){openFusion();return}page=name;paused=true;$('overlay').style.display='flex';$('items').replaceChildren();let names={upgrade:'⬆️ Training',weapons:'🔫 Waffenarsenal',pets:'🐾 Pet-Paradies',fusion:'✨ Pet-Fusion',skins:'🎨 Hunde-Skins',shop:'🏪 Kristall-Shop',quests:'🏆 Missionen',worlds:'🗺️ Welten',daily:'🎁 Tagesgeschenk',settings:'⚙️ Einstellungen'};$('heading').textContent=names[name];let n;if(name==='upgrade'){for(let [ico,key,title,desc,start,growth] of [['⚔️','atk','Schaden','Mehr Schaden pro Treffer',60,1.32],['💨','rate','Feuerrate','Schneller schiessen',85,1.39],['💵','moneyBoost','Money','Mehr Münzen pro Baum',100,1.36],['💥','crit','Kritische Treffer','Höhere Chance auf doppelten Schaden',120,1.45],['🐾','petBoost','Pet-Power','Stärkere und schnellere Pets',130,1.45]]){n=Math.floor(start*Math.pow(growth,s[key]-1));entry(ico,title+' · Lv '+s[key],desc,fmt(n)+' 🪙',()=>spend('coins',n,()=>s[key]++))}}else if(name==='weapons'){guns.forEach(([ico,title,mult,price],i)=>entry(ico,title,`Schaden x${mult} · ${s.gunOwned.includes(i)?'Besitzt du bereits':'Freischalten'}`,s.gun===i?'AKTIV':s.gunOwned.includes(i)?'NUTZEN':fmt(price)+' 🪙',()=>{if(s.gunOwned.includes(i)){s.gun=i;flash('🔫 Waffe gewechselt')}else spend('coins',price,()=>{s.gunOwned.push(i);s.gun=i;flash('🎉 Neue Waffe!')})},s.gun===i))}else if(name==='pets'){
+ entry('🐸','Starter-Pet: Chubby Frosch','Jedes neue Pet-Ei enthält immer einen Frosch.','50 💎',()=>spend('gems',50,collectFrog));
+ entry('💖','Begleiter '+s.pets.length+'/3','Maximal drei Pets laufen nebeneinander mit dir.','INFO',()=>flash('🐾 Wähle bis zu 3 Begleiter aus'));
+ s.pets.forEach((pet,i)=>entry(pets[pet.kind][0],pets[pet.kind][1]+' · Begleiter '+(i+1),petBonuses[pet.kind][1]+' +'+Math.round(petBonuses[pet.kind][2]*100)+'%','ABWÄHLEN',()=>unequipPet(i)));
+ pets.forEach(([ico,name],kind)=>{
+ let count=s.petInventory.filter(p=>p.kind===kind).length;
+ if(!count)return;
+ entry(ico,name+' · '+count+'× im Besitz',petBonuses[kind][1]+' +'+Math.round(petBonuses[kind][2]*100)+'% pro aktivem Pet','BEGLEITEN',()=>equipPet(s.petInventory.findIndex(p=>p.kind===kind)),s.pets.length>=3||s.pets.filter(p=>p.kind===kind).length>=count)
+ });
+}else if(name==='fusion'){
+ entry('✨','Pet-Fusion: immer 2 gleiche','🐸 Frosch → 🐝 Biene → 🐼 Panda → 🐺 Wolf → 🐮 Highlandrind','VERSCHMELZEN',()=>fusePet());
+ pets.forEach(([ico,name],kind)=>{
+ let count=s.petInventory.filter(p=>p.kind===kind).length;
+ entry(ico,name+' · '+count+'×',kind<4?'2 gleiche → '+pets[kind+1][1]:'Höchste Entwicklungsstufe',count>=2&&kind<4?'BEREIT':'SAMMELN',()=>{if(count>=2&&kind<4)fusePet();else open('pets')},kind===4)
+ });
+}else if(name==='skins'){skins.forEach(([ico,title],i)=>entry(ico,title,s.unlocked.includes(i)?'Freigeschaltet':'Seltener Hunde-Skin',s.skin===i?'AKTIV':s.unlocked.includes(i)?'ANZIEHEN':(35+i*15)+' 💎',()=>{if(s.unlocked.includes(i))s.skin=i;else spend('gems',35+i*15,()=>{s.unlocked.push(i);s.skin=i;flash('🎨 Skin freigeschaltet!')})},s.skin===i))}else if(name==='shop'){entry('🪙','Kleiner Münzsack','700 Münzen für Upgrades','12 💎',()=>spend('gems',12,()=>{s.coins+=700;s.totalCoins+=700}));entry('💰','Grosse Schatztruhe','2500 Münzen für starke Waffen','35 💎',()=>spend('gems',35,()=>{s.coins+=2500;s.totalCoins+=2500}));entry('🥚','Pet-Ei','Immer ein Chubby Frosch','50 💎',()=>{spend('gems',50,collectFrog)})}else if(name==='quests'){quests.forEach(([title,get,goal,coins,gems],i)=>{let done=get()>=goal,claimed=s.questsClaimed[i];entry(done?'🏆':'📜',title,`${Math.min(goal,get())}/${goal} · Belohnung: ${coins} 🪙 + ${gems} 💎`,claimed?'ERLEDIGT':done?'HOLEN':'OFFEN',()=>{if(!done||claimed)return;s.questsClaimed[i]=true;s.coins+=coins;s.gems+=gems;flash('🏆 Belohnung!')},!done||claimed)})}else if(name==='worlds'){worlds.forEach(([ico],i)=>entry(ico,['Zauberwald','Zuckerland','Eisberge','Vulkan','Mondgarten','Sternenwelt'][i],`Welt ${i+1} · ${i+1<=s.area?'Entdeckt':'Erreiche die nächste Welt'}`,i+1===s.area?'AKTUELL':i+1<s.area?'REISEN':'GESPERRT',()=>{s.area=i+1;s.wave=1;s.waveProgress=0;targets=[];spawnStage();flash('🗺️ Welt gewechselt')},i+1>=s.area));if(s.area>worlds.length){entry('🌿','Wunderwelt '+s.area,'Aktuelle unendliche Welt','AKTUELL',()=>{},true)} }else if(name==='daily'){let today=new Date().toLocaleDateString('en-CA');entry('🎁','Tägliche Überraschung','300 Münzen + 10 Diamanten',s.giftDay===today?'ABGEHOLT':'ABHOLEN',()=>{if(s.giftDay===today)return;s.giftDay=today;s.coins+=300;s.gems+=10;flash('🎁 Geschenk erhalten!')},s.giftDay===today)}else if(name==='settings'){entry('⚡','Automatisches Schiessen',auto?'Eingeschaltet':'Ausgeschaltet',auto?'AUS':'AN',()=>toggleAuto());entry('💾','Spielstand speichern','Wird auch automatisch gespeichert','SPEICHERN',()=>{save();flash('💾 Gespeichert')});let d=document.createElement('p');d.className='subtitle';d.textContent='Dein Hund läuft selbstständig zum nächsten Baum und greift automatisch an. Alle Spielfortschritte bleiben auf diesem Gerät im Browser gespeichert. Das Spiel ist ein eigenständiges Fan-inspiriertes Original.';$('items').append(d)}hud()}
+let fusionPage=0,draggingPet=null,dragStart=null,dragFrom=null;
+const fusionNames=['Frosch','Bienli','Panda','Wolf','Highlandrind'];
+const fusionPics=['frog','bee','panda','wolf','highland'];
+function petImage(kind){return 'assets/chubby-'+fusionPics[kind]+'.png'}
+const fusionPreload=fusionPics.map((_,kind)=>{let im=new Image();im.src=petImage(kind);return im});
+function openFusion(){
+ if(!$('fusionShade').classList.contains('visible')){
+  paused=true;$('overlay').style.display='none';$('fusionShade').classList.add('visible');$('fusionShade').setAttribute('aria-hidden','false');
+ }
+ renderFusion();
+}
+function closeFusion(){
+ $('fusionShade').classList.remove('visible');$('fusionShade').setAttribute('aria-hidden','true');
+ $('fusionGhost').style.display='none';draggingPet=null;dragStart=null;paused=false;save();hud()
+}
+$('fusionX').onclick=closeFusion;
+$('fusionShade').addEventListener('pointerdown',e=>{if(e.target===$('fusionShade'))closeFusion()});
+function makePetSlot(p,source,index){
+ let el=document.createElement('div');el.className='fusionSlot'+(!p?' empty':'');
+ el.dataset.source=source;el.dataset.index=index;
+ if(p){
+  let img=document.createElement('img');img.src=petImage(p.kind);img.alt='Chubby Kawaii '+fusionNames[p.kind];img.draggable=false;
+  img.onerror=()=>{img.style.display='none';label.textContent='PNG fehlt: '+fusionNames[p.kind]};
+  let label=document.createElement('span');label.className='petName';label.textContent=fusionNames[p.kind];
+  let rank=document.createElement('span');rank.className='petRank';rank.textContent='Lv.'+(p.kind+1);
+  el.append(img,label,rank);
+  if(source==='inventory'){
+   let ownedBefore=s.petInventory.slice(0,index+1).filter(q=>q.kind===p.kind).length;
+   let active=s.pets.filter(q=>q.kind===p.kind).length;
+   if(ownedBefore<=active){let dot=document.createElement('span');dot.className='petActiveMark';dot.textContent='✓ Aktiv';el.append(dot)}
+  }
+ }else{let mark=document.createElement('span');mark.className='emptyMark';mark.textContent=source==='equipped'?'♡':'+';el.append(mark)}
+ el.addEventListener('pointerdown',fusionPointerDown);
+ return el
+}
+function renderFusion(){
+ let eq=$('fusionEquipped'),inv=$('fusionInventory');eq.replaceChildren();inv.replaceChildren();
+ for(let i=0;i<3;i++)eq.append(makePetSlot(s.pets[i]||null,'equipped',i));
+ let pages=Math.max(1,Math.ceil(s.petInventory.length/16));fusionPage=Math.max(0,Math.min(fusionPage,pages-1));
+ for(let i=0;i<16;i++)inv.append(makePetSlot(s.petInventory[fusionPage*16+i]||null,'inventory',fusionPage*16+i));
+ $('fusionPrev').disabled=fusionPage===0;$('fusionNext').disabled=fusionPage>=pages-1;
+ $('fusionBuy').disabled=s.gems<50;
+ $('fusionCount').textContent=s.petInventory.length+' Pets gesammelt · '+s.pets.length+'/3 Begleiter · '+fmt(s.gems)+' 💎';
+}
+function getPet(source,index){return source==='equipped'?s.pets[index]:s.petInventory[index]}
+function fusionPointerDown(e){
+ if(e.button!==0&&e.pointerType==='mouse')return;
+ let slot=e.currentTarget,source=slot.dataset.source,index=Number(slot.dataset.index),pet=getPet(source,index);
+ if(!pet){return}
+ e.preventDefault();
+ dragFrom=slot;dragStart={x:e.clientX,y:e.clientY,source,index,pet:{...pet}};
+ draggingPet=false;
+ slot.setPointerCapture(e.pointerId);
+ slot.addEventListener('pointermove',fusionPointerMove);
+ slot.addEventListener('pointerup',fusionPointerUp,{once:true});
+ slot.addEventListener('pointercancel',fusionPointerCancel,{once:true});
+}
+function fusionPointerMove(e){
+ if(!dragStart)return;
+ if(!draggingPet&&Math.hypot(e.clientX-dragStart.x,e.clientY-dragStart.y)>9){
+  draggingPet=true;dragFrom.classList.add('dragSource');
+  $('fusionGhost').src=petImage(dragStart.pet.kind);$('fusionGhost').style.display='block';
+ }
+ if(draggingPet){
+  $('fusionGhost').style.left=e.clientX+'px';$('fusionGhost').style.top=e.clientY+'px';
+  document.querySelectorAll('.fusionSlot.dropReady').forEach(x=>x.classList.remove('dropReady'));
+  let target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.fusionSlot');
+  if(target&&target!==dragFrom)target.classList.add('dropReady');
+ }
+}
+function fusionPointerCancel(){clearFusionDrag()}
+function clearFusionDrag(){
+ if(dragFrom){dragFrom.classList.remove('dragSource');dragFrom.removeEventListener('pointermove',fusionPointerMove)}
+ document.querySelectorAll('.fusionSlot.dropReady').forEach(x=>x.classList.remove('dropReady'));
+ $('fusionGhost').style.display='none';dragStart=null;draggingPet=null;dragFrom=null
+}
+function fusionPointerUp(e){
+ if(!dragStart)return;
+ let from=dragStart;
+ let target=draggingPet?document.elementFromPoint(e.clientX,e.clientY)?.closest('.fusionSlot'):null;
+ clearFusionDrag();
+ if(!target){
+  if(from.source==='inventory')equipInventoryPet(from.index);
+  else if(from.source==='equipped')unequipPet(from.index);
+ }else{
+  let toSource=target.dataset.source,toIndex=Number(target.dataset.index);
+  if(from.source===toSource&&from.index===toIndex)return;
+  if(from.source==='inventory'&&toSource==='inventory')mergeInventoryPets(from.index,toIndex);
+  else if(from.source==='inventory'&&toSource==='equipped')equipInventoryPet(from.index,toIndex);
+  else if(from.source==='equipped'&&toSource==='inventory'){
+   // Moving a companion back to the collection only unequips it.
+   // Inventory copy remains owned and visible, never deleted.
+   unequipPet(from.index);flash('💗 Pet ist zurück in deiner Sammlung!')
+  }
+  else if(from.source==='equipped'&&toSource==='equipped'){
+   if(s.pets[toIndex]){let temp=s.pets[from.index];s.pets[from.index]=s.pets[toIndex];s.pets[toIndex]=temp}
+   else {s.pets[toIndex]=s.pets[from.index];s.pets.splice(from.index,1)}
+  }
+ }
+ save();hud();renderFusion()
+}
+function mergeInventoryPets(a,b){
+ if(a===b)return;
+ let first=s.petInventory[a],second=s.petInventory[b];
+ if(!first||!second)return flash('🎀 Ziehe auf ein vorhandenes Pet');
+ if(first.kind!==second.kind)return flash('💗 Nur zwei gleiche Pets verschmelzen!');
+ if(first.kind>=4)return flash('👑 Highlandrind ist die höchste Stufe!');
+ let kind=first.kind;
+ // Remove both copies and add one evolved pet; reconcile equipped counts.
+ s.petInventory=s.petInventory.filter((p,i)=>i!==a&&i!==b);
+ s.petInventory.push({kind:kind+1,tier:1});
+ let available=s.petInventory.filter(p=>p.kind===kind).length,seen=0;
+ s.pets=s.pets.filter(p=>p.kind!==kind||++seen<=available);
+ if(s.pets.length<3)s.pets.push({kind:kind+1,tier:1});
+ flash('✨ '+fusionNames[kind]+' → '+fusionNames[kind+1]+'! 💖')
+}
+function equipInventoryPet(index,slot){
+ let pet=s.petInventory[index];if(!pet)return;
+ let owned=s.petInventory.filter(p=>p.kind===pet.kind).length;
+ let used=s.pets.filter(p=>p.kind===pet.kind).length;
+ if(used>=owned)return flash('💗 Alle diese Pets sind bereits Begleiter');
+ if(slot!==undefined&&s.pets[slot]){
+  s.pets.splice(slot,1);
+  s.pets.splice(slot,0,{...pet});
+ }else if(s.pets.length<3)s.pets.push({...pet});
+ else return flash('🐾 Maximal 3 Begleiter!');
+ flash('🐾 '+fusionNames[pet.kind]+' begleitet dich!')
+}
+$('fusionBuy').onclick=()=>{
+ if(s.gems<50)return flash('💎 Du brauchst 50 Diamanten');
+ s.gems-=50;s.petInventory.push({kind:0,tier:1});
+ fusionPage=Math.floor((s.petInventory.length-1)/16);
+ flash('🐸 Ein neuer Chubby Frosch!');save();hud();renderFusion();
+};
+$('fusionPrev').onclick=()=>{fusionPage--;renderFusion()};
+$('fusionNext').onclick=()=>{fusionPage++;renderFusion()};
+function close(){paused=false;$('overlay').style.display='none'}$('close').onclick=close;document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>open(b.dataset.page));function toggleAuto(){auto=true;s.auto=auto;$('auto').textContent=auto?'⚡ AUTO AN':'⚡ AUTO AUS';$('auto').classList.toggle('off',!auto);save()}$('auto').onclick=toggleAuto;if(false){$('auto').textContent='⚡ AUTO AUS';$('auto').classList.add('off')}const stick=$('stick'),knob=$('knob');function joy(e){let r=stick.getBoundingClientRect(),dx=e.clientX-r.left-r.width/2;move=clamp(dx/34,-1,1);knob.style.transform=`translateX(${move*27}px)`}stick.addEventListener('pointerdown',e=>{stick.setPointerCapture(e.pointerId);joy(e)});stick.addEventListener('pointermove',e=>{if(stick.hasPointerCapture(e.pointerId))joy(e)});function resetJoy(){move=0;knob.style.transform=''}stick.addEventListener('pointerup',resetJoy);stick.addEventListener('pointercancel',resetJoy);$('fire').addEventListener('pointerdown',e=>{e.preventDefault();shooting=true;$('fire').setPointerCapture(e.pointerId)});$('fire').addEventListener('pointerup',()=>shooting=false);$('fire').addEventListener('pointercancel',()=>shooting=false);let pressed={};addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight',' ','a','d'].includes(e.key))e.preventDefault();pressed[e.key]=true;move=(pressed.ArrowRight||pressed.d?1:0)-(pressed.ArrowLeft||pressed.a?1:0);shooting=!!pressed[' '];if(e.key==='Escape'&&paused)close()});addEventListener('keyup',e=>{pressed[e.key]=false;move=(pressed.ArrowRight||pressed.d?1:0)-(pressed.ArrowLeft||pressed.a?1:0);shooting=!!pressed[' ']});$('play').onclick=()=>{$('start').style.display='none';paused=false;flash('🐶 LOS GEHT’S!')};function frame(ms){let dt=Math.min(.04,(ms-previous)/1000||.016);previous=ms;update(dt);draw();requestAnimationFrame(frame)}ensureTargets();hud();requestAnimationFrame(frame);
+})();</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const canvas=document.getElementById('dog3DCanvas');
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,premultipliedAlpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setClearColor(0x000000,0);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-innerWidth/2,innerWidth/2,innerHeight/2,-innerHeight/2,.1,1000);
+camera.position.set(0,0,400);camera.lookAt(0,0,0);
+scene.add(new THREE.HemisphereLight(0xffffff,0x9a8aa8,2.1));
+const light=new THREE.DirectionalLight(0xffffff,2.7);light.position.set(-100,200,260);scene.add(light);
+const group=new THREE.Group();scene.add(group);
+const loader=new GLTFLoader(),models=Array(8).fill(null);
+window.dog3DReady=Array(8).fill(false);
+const colors=[0xe8b25b,0xf6cc69,0x75c5ef,0xc8a1f2,0xf19272,0x91dcb2];
+let weapon=null,weaponIndex=-1;
+function ellipsoid(color,x,y,z,sx,sy,sz){
+ const m=new THREE.Mesh(new THREE.SphereGeometry(1,24,16),new THREE.MeshStandardMaterial({color,roughness:.48,metalness:.05}));
+ m.position.set(x,y,z);m.scale.set(sx,sy,sz);return m
+}
+function makeGun(index){
+ const g=new THREE.Group(),col=colors[index%colors.length];
+ g.add(ellipsoid(0x5d6073,.34,-.59,1.13,.31,.16,.16));
+ g.add(ellipsoid(col,.62,-.62,1.16,.30,.13,.14));
+ g.add(ellipsoid(0x414759,.89,-.64,1.16,.23,.15,.16));
+ g.add(ellipsoid(0xffe8a9,1.07,-.65,1.16,.12,.13,.13));
+ g.add(ellipsoid(0x575060,.34,-.59,.91,.12,.12,.27));
+ return g
+}
+for(let i=0;i<8;i++){
+ loader.load('models/dog-'+String(i+1).padStart(2,'0')+'.glb',g=>{
+  models[i]=g.scene;window.dog3DReady[i]=true;
+ },undefined,e=>{console.warn('3D dog model missing',i,e)});
+}
+let state=null,current=-1,model=null;
+window.dog3DFrame=(frame)=>{state=frame};
+function size(){
+ const w=innerWidth,h=innerHeight;
+ renderer.setSize(w,h,false);camera.left=-w/2;camera.right=w/2;camera.top=h/2;camera.bottom=-h/2;camera.updateProjectionMatrix()
+}
+addEventListener('resize',size);size();
+let last=performance.now();
+function tick(now){
+ requestAnimationFrame(tick);
+ const dt=Math.min(.06,(now-last)/1000);last=now;
+ if(!state||!models[state.skin]){group.visible=false;renderer.clear();return}
+ group.visible=true;
+ if(current!==state.skin){
+  if(model)group.remove(model);
+  current=state.skin;model=models[current].clone(true);group.add(model);
+  model.rotation.x=-Math.PI/2;
+ }
+ if(weaponIndex!==state.gun){
+  if(weapon)model.remove(weapon);
+  weaponIndex=state.gun;weapon=makeGun(weaponIndex);model.add(weapon)
+ }
+ const scale=29*1.12;
+ group.position.set(state.x-innerWidth/2,innerHeight/2-state.y+4,0);
+ group.scale.setScalar(scale);
+ const walking=state.walking;
+ model.position.y=0;
+ model.position.z=walking?Math.abs(Math.sin(state.phase))*.065:Math.sin(now*.002)*.015;
+ model.rotation.z=Math.sin(now*.0015)*.025;
+ for(const side of ['L','R'])for(const part of ['front','back']){
+  const leg=model.getObjectByName('leg_'+part+side);
+  if(leg)leg.rotation.x=walking?Math.sin(state.phase+(side==='L'?0:Math.PI)+(part==='back'?Math.PI:0))*.48:0;
+ }
+ const tail=model.getObjectByName('tailPivot');if(tail)tail.rotation.x=Math.sin(now*.008)*.25;
+ const head=model.getObjectByName('headPivot');if(head){head.rotation.y=Math.sin(now*.002)*.05;head.rotation.x=state.shooting?Math.sin(now*.016)*.10:0}
+ renderer.render(scene,camera)
+}
+requestAnimationFrame(tick);
+</script>
+</body></html>
